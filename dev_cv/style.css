@@ -212,3 +212,121 @@ footer{
     font-size: 24px;
   }
 }
+
+
+/* ================= HAR PAGE EXTRAS ================= */
+
+h1, h2, h3, h4{
+  color: #ffffff;
+}
+
+/* Wrapper for HAR documents section */
+.har-wrapper{
+  position: relative;
+  margin: 150px auto 80px auto;
+  width: 80%;
+  max-width: 1100px;
+  color: #ffffff;
+}
+
+.har-docs-header{
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.har-docs-header h2{
+  font-size: 28px;
+  margin-bottom: 5px;
+}
+
+.har-docs-header p{
+  font-size: 14px;
+  color: #cfcfcf;
+}
+
+/* List of sections */
+.paper-section-list{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.paper-section-list li{
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px 20px;
+  align-items: center;
+  margin-bottom: 14px;
+  padding: 14px 18px;
+  border-radius: 8px;
+  background-color: #191919;
+  border-left: 4px solid #ff5733;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.6);
+}
+
+.paper-section-main{
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.paper-section-main i{
+  font-size: 20px;
+  color: #ff5733;
+  margin-top: 2px;
+}
+
+.paper-section-main strong{
+  font-size: 15px;
+  color: #ffffff;
+}
+
+.paper-section-main .desc{
+  display: block;
+  font-size: 12px;
+  color: #d0d0d0;
+  margin-top: 3px;
+}
+
+.paper-section-list .cv-btn{
+  width: 120px;
+  height: 36px;
+  font-size: 14px;
+}
+
+/* Mobile tweaks so it doesn’t look cramped */
+@media (max-width: 900px){
+  .har-wrapper{
+    width: 90%;
+    margin-top: 120px;
+  }
+
+  .paper-section-list li{
+    grid-template-columns: 1fr;
+  }
+
+  .paper-section-list .cv-btn{
+    width: 100%;
+  }
+
+  /* override old mobile values so text/code don’t go off-screen */
+  .text-area{
+    width: 85%;
+    left: 20px;
+    top: 180px;
+  }
+
+  .code-box{
+    position: relative;
+    left: 20px;
+    width: 90%;
+    height: auto;
+    bottom: 0;
+    margin-top: 40px;
+  }
+
+  #codebox,
+  .codeheader{
+    width: 100%;
+  }
+}
