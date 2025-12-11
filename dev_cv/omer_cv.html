@@ -1,113 +1,312 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>SYED_OMER_ALI_CV</title>
-  <link rel="stylesheet" href="./style.css">
+  <title>SYED_OMER_ALI_HAR_PAPER</title>
 
+  <!-- Main stylesheet (your existing one) -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- AOS + Fonts + Icons + Animations -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+
+  <!-- jQuery (for your existing JS effects if needed) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-circle-progress/1.2.2/circle-progress.min.js"></script>
+
+  <!-- Small extra styling for the HAR sections -->
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .paper-sections {
+      margin: 40px auto;
+      max-width: 1000px;
+    }
+
+    .paper-section-list {
+      list-style: none;
+      padding: 0;
+      margin: 20px 0;
+    }
+
+    .paper-section-list li {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 15px;
+      padding: 15px 20px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .paper-section-list i {
+      margin-right: 8px;
+      font-size: 18px;
+    }
+
+    .paper-section-list strong {
+      margin-right: 8px;
+    }
+
+    .paper-section-list span.desc {
+      flex: 1 1 250px;
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    .paper-section-list .cv-btn {
+      white-space: nowrap;
+      margin-left: auto;
+    }
+
+    @media (max-width: 600px) {
+      .paper-section-list li {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .paper-section-list .cv-btn {
+        margin-left: 0;
+      }
+    }
+  </style>
 </head>
 <body>
-<!-- partial:index.partial.html -->
-<html>
-    <head>
-        <title>SYED_OMER_ALI_CV</title>
-        <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
-        <link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-        />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-circle-progress/1.2.2/circle-progress.min.js"></script>
-    </head>
-    <body>
-      <div class="text-area">
-        <h1 class="animate__bounceIn"><span>#Devel</span>oper <span></span> </h1>
-        <p>Hi, I'm <span>Syed Omer Ali</span>, a<span
-          class="txt-rotate"
-          data-period="2000"
-          data-rotate='[ "Laravel", "Php", "React", "Java Script", "Lua" ]'
-        ></span> full stack web developer. I can code quality and developed websites and scripts for you.</p>
-        <a href="https://drive.google.com/uc?export=view&id=1qm4KiChztQa_mfVoSIXLRJiC-JhqDBlB"><button class="cv-btn" data-aos="fade-left" >CV DOWNLOAD</button></a> 
-          <!-- <div class="My-Status" data-aos="fade-right">
-            <img src="materials/php.png" alt="Php" width="48" height="48">
-            <img src="materials/Laravel.png" alt="Laravel" width="48" height="48">
-            <img src="materials/js.png" alt="Js" width="48" height="48">
-            <img src="materials/react.png" alt="React" width="48" height="48">
-            <img src="materials/lua.png" alt="Lua" width="48" height="48">
-            <img src="materials/mysql.png" alt="Mysql" width="48" height="48">
-          </div> -->
-      </div>
-      <div class="code-box" data-aos="fade-left">
-        <div class="codeheader html">Html</div>
-        <div id="codebox">
-          <pre><code data-language="css"><span>&lt;div</span> class = "codebutton">
- <span>&lt;button</span> type="button" onclick="myFunction()">
- Click Me!<span>&lt;/button></span>
-<span>&lt;/div></span></code></pre>
-      </div> 
-      <br>
-        <div  class="codebox-css">
-          <div class="codeheader css">css</div>
-            <div id="codebox">
-              <pre><code data-language="css"><span>.codebutton {</span>
-    color: #ff5733;
-    font-family: Courier, sans-serif;
-    font-size: 12px;
-    width:100px;
-    height:20px;
-<span>}</span></code></pre>
-          </div>
-        </div>
-        <br>
-        <div class="codeheader js">Js</div>
-        <div id="codebox">
-          <pre><code data-language="css"><span>function myFunction() {</span>
-  alert("Congrats on clicking the button 🙂");     
-<span>}</span></code></pre>
-      </div>
-        </div>  
-        <a href="#" class="top">&#8593;</a>
-        <div class="Contact" data-aos="fade-in">
-          <form action="action_page.php/action_page.php.html">
-            <h1>Contact Us</h1>
-            <label for="fname">First Name</label>
-            <input type="text" id="fname" name="firstname" placeholder="Your name..">
 
-            <label for="lname">Last Name</label>
-            <input type="text" id="lname" name="lastname" placeholder="Your last name..">
-         
-            <label for="subject">Tell us about your business</label>
-            <textarea id="subject" name="subject" placeholder="Write something.. example : details about your project your contact information" style="height:100px"></textarea>
-        
-            <input type="submit" value="Submit">
-          </form>
-        </div>
-        <footer>
-          <div class="footer-text">
-            <h1>You can also connect with me from</h1>
-            <h2>Follow me on  <span><a href="https://github.com/omer16061"><button class="cv-btn" >GITHUB</button></a></span> <br> You can  <span><A href="mailto:omar16061cm@gmail.com"><button class="cv-btn" > MAIL ME</button></A></span> </h2>
-            <br>
-            <!-- <a href="#"><img src="materials/upwork.png" alt="Upwork" width="30" height="30"></a>
-            <a href="#"><img src="materials/discord.png" alt="Discord" width="30" height="30"></a> -->
-          </div>
-        </footer>
-      <script src="js/effect.js"></script>
-      <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-      <script>
-        AOS.init({
-          offset: 400,
-          duration: 1000,
-        });
-      </script>
-    </body>
-</html>
-<!-- partial -->
-  
+  <!-- HERO / INTRO -->
+  <div class="text-area">
+    <h1 class="animate__bounceIn">
+      <span>Human Activity</span> Recognition <span>(HAR)</span>
+    </h1>
+    <p>
+      Hi, I'm <span>Syed Omer Ali</span>, a developer and researcher working on
+      <strong>Human Activity Recognition using deep learning</strong>.  
+      This page organizes all sections of my HAR project documentation
+      — from <strong>Abstract</strong> to <strong>Source Code</strong> — so faculty,
+      reviewers, and collaborators can easily read everything online.
+    </p>
+
+    <!-- Main quick access button (opens Abstract) -->
+    <a href="https://drive.google.com/file/d/179XvyxapGUKGCr6VUtyV36-3s337-ckg/view?usp=sharing"
+       target="_blank">
+      <button class="cv-btn" data-aos="fade-left">VIEW ABSTRACT</button>
+    </a>
+  </div>
+
+  <!-- OVERVIEW (reusing your code-box style as “Paper Overview”) -->
+  <div class="code-box" data-aos="fade-left">
+    <div class="codeheader html">Paper Overview</div>
+    <div id="codebox">
+      <pre><code>
+• Project: Vision-based Human Activity Recognition (HAR)
+• Approach: CNN models with Transfer Learning
+• Dataset: Weizmann Human Action Dataset
+• Best Model: VGG-16 with ~96.95% accuracy
+• Applications: Elderly care, surveillance, smart environments
+      </code></pre>
+    </div>
+    <br>
+
+    <div class="codebox-css">
+      <div class="codeheader css">Technical Stack</div>
+      <div id="codebox">
+        <pre><code>
+• Python, CNNs, Transfer Learning
+• Dataset preprocessing and augmentation
+• Model training and evaluation
+• Modular documentation: Intro, Lit Survey, Modules, Test Cases, Source Code
+        </code></pre>
+      </div>
+    </div>
+    <br>
+
+    <div class="codeheader js">Key Insight</div>
+    <div id="codebox">
+      <pre><code>
+Deep CNNs with transfer learning significantly improve HAR accuracy
+over traditional handcrafted features, especially on constrained datasets.
+      </code></pre>
+    </div>
+  </div>
+
+  <!-- ORGANISED HAR DOCUMENTS SECTION -->
+  <section class="paper-sections" data-aos="fade-up">
+    <div class="code-box">
+      <div class="codeheader css">HAR Project Documents</div>
+      <div id="codebox">
+        <p>Select a section to open the corresponding document in Google Drive:</p>
+
+        <ul class="paper-section-list">
+
+          <!-- ABSTRACT -->
+          <li>
+            <i class="fas fa-file-pdf"></i>
+            <strong>Abstract</strong>
+            <span class="desc">
+              High-level summary of the HAR system, CNN approach, and core results.
+            </span>
+            <a href="https://drive.google.com/file/d/179XvyxapGUKGCr6VUtyV36-3s337-ckg/view?usp=sharing"
+               target="_blank" class="cv-btn">Read</a>
+          </li>
+
+          <!-- INTRODUCTION -->
+          <li>
+            <i class="fas fa-file-pdf"></i>
+            <strong>Introduction</strong>
+            <span class="desc">
+              Background on Human Activity Recognition, motivation, and problem statement.
+            </span>
+            <a href="https://drive.google.com/file/d/1_vBF_31e_U44G-dNzh8v0bSEsjxjIYnI/view?usp=sharing"
+               target="_blank" class="cv-btn">Read</a>
+          </li>
+
+          <!-- LITERATURE SURVEY -->
+          <li>
+            <i class="fas fa-file-pdf"></i>
+            <strong>Literature Survey</strong>
+            <span class="desc">
+              Review of existing HAR methods, CNN-based approaches, and related works.
+            </span>
+            <a href="https://drive.google.com/file/d/1TDk_dSDkLKqk-4YWHGwrHmty5G84Vsfh/view?usp=sharing"
+               target="_blank" class="cv-btn">Read</a>
+          </li>
+
+          <!-- MODULES -->
+          <li>
+            <i class="fas fa-file-pdf"></i>
+            <strong>Modules</strong>
+            <span class="desc">
+              System design, architectural modules, and flow of the HAR application.
+            </span>
+            <a href="https://drive.google.com/file/d/1AmIexf4K4d24c7skewIRvwvlZhn-8ziG/view?usp=sharing"
+               target="_blank" class="cv-btn">Read</a>
+          </li>
+
+          <!-- TEST CASES -->
+          <li>
+            <i class="fas fa-file-pdf"></i>
+            <strong>Test Cases</strong>
+            <span class="desc">
+              Functional and non-functional test cases validating the HAR system.
+            </span>
+            <a href="https://drive.google.com/file/d/10vajChEq_t0_erR_jZMGlvUnpD4fw8FP/view?usp=sharing"
+               target="_blank" class="cv-btn">Read</a>
+          </li>
+
+          <!-- SCREENSHOTS -->
+          <li>
+            <i class="fas fa-file-pdf"></i>
+            <strong>Screenshots</strong>
+            <span class="desc">
+              UI screens, training logs, and visual outputs from the HAR project.
+            </span>
+            <a href="https://drive.google.com/file/d/1Vw9kgE0BFEW0kU-ZCD7hp5TseY9QAfkb/view?usp=sharing"
+               target="_blank" class="cv-btn">View</a>
+          </li>
+
+          <!-- SOURCE CODE -->
+          <li>
+            <i class="fas fa-file-pdf"></i>
+            <strong>Source Code (Documented)</strong>
+            <span class="desc">
+              Documented code listing and explanation of core scripts and functions.
+            </span>
+            <a href="https://drive.google.com/file/d/1CKbyYx8MUVqhRP0L6-yHjW7H9apRwWKh/view?usp=sharing"
+               target="_blank" class="cv-btn">View</a>
+          </li>
+
+          <!-- CONCLUSION -->
+          <li>
+            <i class="fas fa-file-pdf"></i>
+            <strong>Conclusion</strong>
+            <span class="desc">
+              Final results, performance analysis, and takeaway of the HAR model.
+            </span>
+            <a href="https://drive.google.com/file/d/1FYvUfl5kxrl_gh20URwIMFQ2zqsYYLeO/view?usp=sharing"
+               target="_blank" class="cv-btn">Read</a>
+          </li>
+
+          <!-- BIBLIOGRAPHY -->
+          <li>
+            <i class="fas fa-file-pdf"></i>
+            <strong>Bibliography</strong>
+            <span class="desc">
+              Complete list of research papers, articles, and datasets referenced.
+            </span>
+            <a href="https://drive.google.com/file/d/1FYvUfl5kxrl_gh20URwIMFQ2zqsYYLeO/view?usp=sharing"
+               target="_blank" class="cv-btn">Read</a>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- BACK TO TOP -->
+  <a href="#" class="top">&#8593;</a>
+
+  <!-- CONTACT (reusing your existing form style) -->
+  <div class="Contact" data-aos="fade-in">
+    <form>
+      <h1>Contact Me</h1>
+      <label for="fname">First Name</label>
+      <input type="text" id="fname" name="firstname" placeholder="Your name..">
+
+      <label for="lname">Last Name</label>
+      <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+
+      <label for="subject">Message</label>
+      <textarea id="subject" name="subject"
+                placeholder="Write your message, feedback, or collaboration idea.."
+                style="height:100px"></textarea>
+
+      <input type="submit" value="Submit">
+    </form>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-text">
+      <h1>You can also connect with me</h1>
+      <h2>
+        Follow me on
+        <span>
+          <a href="https://github.com/omer16061" target="_blank">
+            <button class="cv-btn">GITHUB</button>
+          </a>
+        </span>
+        <br>
+        You can
+        <span>
+          <a href="mailto:omar16061cm@gmail.com">
+            <button class="cv-btn">MAIL ME</button>
+          </a>
+        </span>
+      </h2>
+    </div>
+  </footer>
+
+  <!-- Your existing JS effects (if any) -->
+  <script src="js/effect.js"></script>
+
+  <!-- AOS Init -->
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      offset: 200,
+      duration: 800,
+    });
+  </script>
 </body>
 </html>
