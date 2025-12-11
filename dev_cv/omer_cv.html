@@ -2,142 +2,38 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>SYED_OMER_ALI_HAR_PAPER</title>
+  <title>Human Activity Recognition | Syed Omer Ali</title>
 
-  <!-- Your main stylesheet -->
+  <!-- Use your existing stylesheet -->
   <link rel="stylesheet" href="css/style.css">
 
-  <!-- Fonts / Icons / Animations (optional but nice) -->
+  <!-- Fonts / icons (optional but match what you used before) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-
-  <!-- jQuery (if effect.js uses it) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-  <!-- Extra styles that respect your existing theme -->
-  <style>
-    /* make headings white by default on dark bg */
-    h1, h2, h3, h4, h5 {
-      color: #ffffff;
-      margin: 0;
-    }
-
-    p {
-      color: #e2e2e2;
-    }
-
-    /* Wrapper for the HAR docs list */
-    .har-docs {
-      position: relative;
-      margin-top: 120px;
-      margin-bottom: 80px;
-      width: 80%;
-      max-width: 1100px;
-      margin-left: auto;
-      margin-right: auto;
-      color: #ffffff;
-    }
-
-    .har-docs-header {
-      text-align: center;
-      margin-bottom: 25px;
-    }
-
-    .har-docs-header h2 {
-      font-size: 28px;
-      margin-bottom: 5px;
-    }
-
-    .har-docs-header p {
-      font-size: 14px;
-      color: #c2c2c2;
-    }
-
-    .paper-section-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    .paper-section-list li {
-      display: grid;
-      grid-template-columns: auto 160px;
-      gap: 10px 20px;
-      align-items: center;
-      margin-bottom: 14px;
-      padding: 14px 18px;
-      border-radius: 6px;
-      background-color: #191919;
-      border-left: 4px solid #ff5733;
-      box-shadow: 0 3px 6px rgba(0,0,0,0.5);
-    }
-
-    .paper-section-main {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .paper-section-main i {
-      font-size: 20px;
-      color: #ff5733;
-    }
-
-    .paper-section-main strong {
-      font-size: 15px;
-      color: #ffffff;
-    }
-
-    .paper-section-main span.desc {
-      display: block;
-      font-size: 12px;
-      color: #d0d0d0;
-      margin-top: 2px;
-    }
-
-    .paper-section-list .cv-btn {
-      width: 120px;
-      height: 38px;
-      font-size: 15px;
-    }
-
-    @media (max-width: 900px) {
-      .paper-section-list li {
-        grid-template-columns: 1fr;
-        align-items: flex-start;
-      }
-
-      .paper-section-list .cv-btn {
-        width: 100%;
-      }
-    }
-  </style>
 </head>
 <body>
 
-  <!-- HERO / INTRO (uses your .text-area styling) -->
-  <div class="text-area" data-aos="fade-right">
+  <!-- LEFT SIDE: intro (uses .text-area from style.css) -->
+  <div class="text-area">
     <h1><span>Human Activity</span> Recognition <span>(HAR)</span></h1>
     <p>
       Hi, I'm <span>Syed Omer Ali</span>, a developer and researcher working on
-      <strong>Human Activity Recognition using deep learning</strong>.  
-      This page organizes all sections of my HAR project documentation — from
-      <strong>Abstract</strong> to <strong>Source Code</strong> — so faculty, reviewers,
-      and collaborators can easily access everything online.
+      <strong>Human Activity Recognition using deep learning</strong>.
+      This page organizes all sections of my HAR project documentation —
+      from <strong>Abstract</strong> to <strong>Source Code</strong> — so faculty,
+      reviewers, and collaborators can easily read everything online.
     </p>
 
-    <!-- Quick CTA button -->
     <a href="https://drive.google.com/file/d/179XvyxapGUKGCr6VUtyV36-3s337-ckg/view?usp=sharing"
        target="_blank">
       <button class="cv-btn">VIEW ABSTRACT</button>
     </a>
   </div>
 
-  <!-- RIGHT SIDE CODE-BOX (uses your .code-box layout) -->
-  <div class="code-box" data-aos="fade-left">
+  <!-- RIGHT SIDE: overview in “code” style (uses .code-box etc.) -->
+  <div class="code-box">
     <div class="codeheader html">Paper Overview</div>
     <div id="codebox">
 <pre><code>• Project: Vision-based Human Activity Recognition (HAR)
@@ -168,8 +64,8 @@ over traditional handcrafted features, especially on constrained datasets.</code
     </div>
   </div>
 
-  <!-- HAR DOCUMENTS LIST (styled to match your theme) -->
-  <section class="har-docs" data-aos="fade-up">
+  <!-- HAR DOCUMENTS LIST (pretty cards, styled in style.css) -->
+  <section class="har-wrapper">
     <div class="har-docs-header">
       <h2>HAR Project Documents</h2>
       <p>Select a section to open the corresponding document in Google Drive.</p>
@@ -315,38 +211,11 @@ over traditional handcrafted features, especially on constrained datasets.</code
     </ul>
   </section>
 
-  <!-- CONTACT (your existing model) -->
+  <!-- Back to top arrow (already styled in style.css) -->
+  <a href="#" class="top">&#8593;</a>
 
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-text">
-      <h1>You can also connect with me</h1>
-      <h2>
-        Follow me on
-        <span>
-          <a href="https://github.com/omer16061" target="_blank">
-            <button class="cv-btn">GITHUB</button>
-          </a>
-        </span>
-        <br>
-        You can
-        <span>
-          <a href="mailto:omar16061cm@gmail.com">
-            <button class="cv-btn">MAIL ME</button>
-          </a>
-        </span>
-      </h2>
-    </div>
-  </footer>
+  <!-- Contact + footer reuse your existing styles if you want them here -->
+  <!-- (optional – you can copy from your dev_cv index if needed) -->
 
-  <!-- Effects + AOS -->
-  <script src="js/effect.js"></script>
-  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-  <script>
-    AOS.init({
-      offset: 200,
-      duration: 800,
-    });
-  </script>
 </body>
 </html>
