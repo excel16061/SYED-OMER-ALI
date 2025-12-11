@@ -2,220 +2,393 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Human Activity Recognition | Syed Omer Ali</title>
+  <title>SYED_OMER_ALI_HAR_PAPER</title>
 
-  <!-- Use your existing stylesheet -->
-  <link rel="stylesheet" href="css/style.css">
-
-  <!-- Fonts / icons (optional but match what you used before) -->
+  <!-- Google Fonts + Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+<style>
+
+/* ===================== GLOBAL ===================== */
+body{
+  scroll-behavior: smooth;
+  background-color: #181818;
+  margin: 0px;
+  padding: 0px;
+  font-family: 'Poppins', sans-serif;
+  overflow-x: hidden !important;
+}
+
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-thumb { background: #ff5733; border-radius: 10px; }
+
+h1, h2, h3, h4, h5 { color: #fff; margin: 0; }
+p { color: #e2e2e2; }
+
+/* ===================== HERO TEXT ===================== */
+.text-area{
+  position: relative;
+  width: 650px;
+  height: auto;
+  top: 180px;
+  left: 150px;
+  color: white;
+  font-size: 24px;
+}
+
+.text-area span{
+  color: #ff5733;
+}
+
+.text-area p{
+  font-size: 20px;
+  margin-top: 15px;
+}
+
+.cv-btn{
+  background-color: #191919;
+  width: 250px;
+  height: 45px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.cv-btn:hover{
+  background-color: #e44f25;
+}
+
+/* ===================== CODE BOX RIGHT SIDE ===================== */
+.code-box{
+  position: absolute;
+  right: 150px;
+  top: 180px;
+  width: 600px;
+}
+
+.codeheader {
+  border-radius: 6px 6px 0 0;
+  padding: 10px;
+  font-size: 1.1em;
+  color: #fff;
+  width: 100%;
+  background-color: #191919;
+}
+
+.html{ color:#e44f25; }
+.css{ color:#1572b7; }
+.js{ color:#efd81d; }
+
+#codebox {
+  padding: 15px;
+  font-family: Courier, monospace;
+  font-size: 1em;
+  color: #fff;
+  background-color: #181818;
+  border-radius: 0 0 6px 6px;
+  width: calc(100% - 30px);
+  border: 1px solid #2a2a2a;
+  margin-bottom: 20px;
+}
+
+/* ===================== HAR SECTION LIST ===================== */
+
+.har-docs {
+  position: relative;
+  margin-top: 900px;
+  width: 80%;
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.har-docs-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.har-docs-header h2 {
+  font-size: 30px;
+}
+
+.har-docs-header p {
+  font-size: 15px;
+  color: #cfcfcf;
+}
+
+.paper-section-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.paper-section-list li {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) auto;
+  gap: 15px;
+  align-items: center;
+  margin-bottom: 15px;
+  padding: 16px;
+  border-radius: 8px;
+  background-color: #191919;
+  border-left: 4px solid #ff5733;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.5);
+}
+
+.paper-section-main {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.paper-section-main i {
+  font-size: 20px;
+  color: #ff5733;
+}
+
+.paper-section-main strong {
+  font-size: 16px;
+  color: #fff;
+}
+
+.paper-section-main .desc {
+  font-size: 12px;
+  color: #d0d0d0;
+  margin-top: 3px;
+}
+
+/* ===================== FOOTER ===================== */
+footer{
+  margin-top: 100px;
+  width: 100%;
+  height: 250px;
+  background-color: #191919;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: inset 0px 2px 0px 0px #161616;
+  text-align: center;
+}
+
+footer .footer-text h1 { font-size: 22px; }
+footer .footer-text h2 { font-size: 18px; }
+
+/* ===================== MOBILE ===================== */
+
+@media(max-width: 1000px){
+
+  .text-area{
+    width: 90%;
+    left: 20px;
+    top: 150px;
+  }
+
+  .code-box{
+    position: relative;
+    left: 20px;
+    top: 80px;
+    width: 90%;
+  }
+
+  .har-docs{
+    margin-top: 350px;
+    width: 90%;
+  }
+
+  .paper-section-list li{
+    grid-template-columns: 1fr;
+  }
+
+  .cv-btn{
+    width: 100%;
+  }
+}
+
+</style>
+
 </head>
 <body>
 
-  <!-- LEFT SIDE: intro (uses .text-area from style.css) -->
-  <div class="text-area">
-    <h1><span>Human Activity</span> Recognition <span>(HAR)</span></h1>
-    <p>
-      Hi, I'm <span>Syed Omer Ali</span>, a developer and researcher working on
-      <strong>Human Activity Recognition using deep learning</strong>.
-      This page organizes all sections of my HAR project documentation —
-      from <strong>Abstract</strong> to <strong>Source Code</strong> — so faculty,
-      reviewers, and collaborators can easily read everything online.
-    </p>
+<!-- ===================== HERO ===================== -->
+<div class="text-area">
+  <h1><span>Human Activity</span> Recognition <span>(HAR)</span></h1>
 
-    <a href="https://drive.google.com/file/d/179XvyxapGUKGCr6VUtyV36-3s337-ckg/view?usp=sharing"
-       target="_blank">
-      <button class="cv-btn">VIEW ABSTRACT</button>
-    </a>
+  <p>
+    Hi, I'm <span>Syed Omer Ali</span>, a developer and researcher working on
+    <strong>Human Activity Recognition using deep learning.</strong>
+    This page organizes all sections of my HAR project documentation  
+    — from <strong>Abstract</strong> to <strong>Source Code</strong> —  
+    for easy academic review.
+  </p>
+
+  <a href="https://drive.google.com/file/d/179XvyxapGUKGCr6VUtyV36-3s337-ckg/view?usp=sharing" target="_blank">
+    <button class="cv-btn">VIEW ABSTRACT</button>
+  </a>
+</div>
+
+<!-- ===================== RIGHT SIDE CODE BOX ===================== -->
+<div class="code-box">
+
+  <div class="codeheader html">Paper Overview</div>
+  <div id="codebox">
+<pre><code>• Project: Human Activity Recognition (HAR)
+• Approach: CNN + Transfer Learning
+• Dataset: Weizmann Dataset
+• Best Model: VGG-16 (~96.95% accuracy)
+• Use Cases: Elderly care, security, smart monitoring</code></pre>
   </div>
 
-  <!-- RIGHT SIDE: overview in “code” style (uses .code-box etc.) -->
-  <div class="code-box">
-    <div class="codeheader html">Paper Overview</div>
-    <div id="codebox">
-<pre><code>• Project: Vision-based Human Activity Recognition (HAR)
-• Approach: CNN models with Transfer Learning
-• Dataset: Weizmann Human Action Dataset
-• Best Model: VGG-16 with ~96.95% accuracy
-• Applications: Elderly care, surveillance, smart environments</code></pre>
-    </div>
+  <div class="codeheader css">Technical Stack</div>
+  <div id="codebox">
+<pre><code>• Python, TensorFlow/Keras
+• CNN architecture experimentation
+• Feature extraction via transfer learning
+• Data preprocessing + augmentation
+• Modular documentation</code></pre>
+  </div>
 
-    <br>
+  <div class="codeheader js">Key Insight</div>
+  <div id="codebox">
+<pre><code>Deep CNNs outperform traditional ML
+when combined with transfer learning,
+even on small datasets like Weizmann.</code></pre>
+  </div>
 
-    <div class="codebox-css">
-      <div class="codeheader css">Technical Stack</div>
-      <div id="codebox">
-<pre><code>• Python, CNNs, Transfer Learning
-• Dataset preprocessing and augmentation
-• Model training and evaluation
-• Modular documentation: Intro, Lit Survey, Modules, Test Cases, Source Code</code></pre>
+</div>
+
+<!-- ===================== HAR DOCUMENT LIST ===================== -->
+<section class="har-docs">
+
+  <div class="har-docs-header">
+    <h2>HAR Project Documents</h2>
+    <p>Select a section to read the corresponding file on Google Drive.</p>
+  </div>
+
+  <ul class="paper-section-list">
+
+    <li>
+      <div class="paper-section-main">
+        <i class="fas fa-file-pdf"></i>
+        <div>
+          <strong>Abstract</strong>
+          <div class="desc">Summary of the HAR system and core results.</div>
+        </div>
       </div>
-    </div>
+      <a class="cv-btn" target="_blank" href="https://drive.google.com/file/d/179XvyxapGUKGCr6VUtyV36-3s337-ckg/view?usp=sharing">Read</a>
+    </li>
 
-    <br>
+    <li>
+      <div class="paper-section-main">
+        <i class="fas fa-file-pdf"></i>
+        <div>
+          <strong>Introduction</strong>
+          <div class="desc">Problem definition and HAR background.</div>
+        </div>
+      </div>
+      <a class="cv-btn" target="_blank" href="https://drive.google.com/file/d/1_vBF_31e_U44G-dNzh8v0bSEsjxjIYnI/view?usp=sharing">Read</a>
+    </li>
 
-    <div class="codeheader js">Key Insight</div>
-    <div id="codebox">
-<pre><code>Deep CNNs with transfer learning significantly improve HAR accuracy
-over traditional handcrafted features, especially on constrained datasets.</code></pre>
-    </div>
+    <li>
+      <div class="paper-section-main">
+        <i class="fas fa-file-pdf"></i>
+        <div>
+          <strong>Literature Survey</strong>
+          <div class="desc">Existing research in HAR and CNN models.</div>
+        </div>
+      </div>
+      <a class="cv-btn" target="_blank" href="https://drive.google.com/file/d/1TDk_dSDkLKqk-4YWHGwrHmty5G84Vsfh/view?usp=sharing">Read</a>
+    </li>
+
+    <li>
+      <div class="paper-section-main">
+        <i class="fas fa-file-pdf"></i>
+        <div>
+          <strong>Modules</strong>
+          <div class="desc">System architecture & workflow.</div>
+        </div>
+      </div>
+      <a class="cv-btn" target="_blank" href="https://drive.google.com/file/d/1AmIexf4K4d24c7skewIRvwvlZhn-8ziG/view?usp=sharing">Read</a>
+    </li>
+
+    <li>
+      <div class="paper-section-main">
+        <i class="fas fa-file-pdf"></i>
+        <div>
+          <strong>Test Cases</strong>
+          <div class="desc">Functional tests validating HAR output.</div>
+        </div>
+      </div>
+      <a class="cv-btn" target="_blank" href="https://drive.google.com/file/d/10vajChEq_t0_erR_jZMGlvUnpD4fw8FP/view?usp=sharing">Read</a>
+    </li>
+
+    <li>
+      <div class="paper-section-main">
+        <i class="fas fa-file-pdf"></i>
+        <div>
+          <strong>Screenshots</strong>
+          <div class="desc">Output samples & model logs.</div>
+        </div>
+      </div>
+      <a class="cv-btn" target="_blank" href="https://drive.google.com/file/d/1Vw9kgE0BFEW0kU-ZCD7hp5TseY9QAfkb/view?usp=sharing">View</a>
+    </li>
+
+    <li>
+      <div class="paper-section-main">
+        <i class="fas fa-file-pdf"></i>
+        <div>
+          <strong>Source Code (Documented)</strong>
+          <div class="desc">Code explanation and architecture.</div>
+        </div>
+      </div>
+      <a class="cv-btn" target="_blank" href="https://drive.google.com/file/d/1CKbyYx8MUVqhRP0L6-yHjW7H9apRwWKh/view?usp=sharing">View</a>
+    </li>
+
+    <li>
+      <div class="paper-section-main">
+        <i class="fas fa-file-pdf"></i>
+        <div>
+          <strong>Conclusion</strong>
+          <div class="desc">Findings, accuracy results, and insights.</div>
+        </div>
+      </div>
+      <a class="cv-btn" target="_blank" href="https://drive.google.com/file/d/1FYvUfl5kxrl_gh20URwIMFQ2zqsYYLeO/view?usp=sharing">Read</a>
+    </li>
+
+    <li>
+      <div class="paper-section-main">
+        <i class="fas fa-file-pdf"></i>
+        <div>
+          <strong>Bibliography</strong>
+          <div class="desc">All referenced research papers.</div>
+        </div>
+      </div>
+      <a class="cv-btn" target="_blank" href="https://drive.google.com/file/d/1FYvUfl5kxrl_gh20URwIMFQ2zqsYYLeO/view?usp=sharing">Read</a>
+    </li>
+
+  </ul>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+  <div class="footer-text">
+    <h1>You can also connect with me</h1>
+    <h2>
+      <a href="https://github.com/omer16061" target="_blank">
+        <button class="cv-btn">GITHUB</button>
+      </a>
+      <br><br>
+      <a href="mailto:omar16061cm@gmail.com">
+        <button class="cv-btn">MAIL ME</button>
+      </a>
+    </h2>
   </div>
-
-  <!-- HAR DOCUMENTS LIST (pretty cards, styled in style.css) -->
-  <section class="har-wrapper">
-    <div class="har-docs-header">
-      <h2>HAR Project Documents</h2>
-      <p>Select a section to open the corresponding document in Google Drive.</p>
-    </div>
-
-    <ul class="paper-section-list">
-
-      <!-- ABSTRACT -->
-      <li>
-        <div class="paper-section-main">
-          <i class="fas fa-file-pdf"></i>
-          <div>
-            <strong>Abstract</strong>
-            <span class="desc">
-              High-level summary of the HAR system, CNN approach, and core results.
-            </span>
-          </div>
-        </div>
-        <a href="https://drive.google.com/file/d/179XvyxapGUKGCr6VUtyV36-3s337-ckg/view?usp=sharing"
-           target="_blank" class="cv-btn">Read</a>
-      </li>
-
-      <!-- INTRODUCTION -->
-      <li>
-        <div class="paper-section-main">
-          <i class="fas fa-file-pdf"></i>
-          <div>
-            <strong>Introduction</strong>
-            <span class="desc">
-              Background on Human Activity Recognition, motivation, and problem statement.
-            </span>
-          </div>
-        </div>
-        <a href="https://drive.google.com/file/d/1_vBF_31e_U44G-dNzh8v0bSEsjxjIYnI/view?usp=sharing"
-           target="_blank" class="cv-btn">Read</a>
-      </li>
-
-      <!-- LITERATURE SURVEY -->
-      <li>
-        <div class="paper-section-main">
-          <i class="fas fa-file-pdf"></i>
-          <div>
-            <strong>Literature Survey</strong>
-            <span class="desc">
-              Review of existing HAR methods, CNN-based approaches, and related works.
-            </span>
-          </div>
-        </div>
-        <a href="https://drive.google.com/file/d/1TDk_dSDkLKqk-4YWHGwrHmty5G84Vsfh/view?usp=sharing"
-           target="_blank" class="cv-btn">Read</a>
-      </li>
-
-      <!-- MODULES -->
-      <li>
-        <div class="paper-section-main">
-          <i class="fas fa-file-pdf"></i>
-          <div>
-            <strong>Modules</strong>
-            <span class="desc">
-              System design, architectural modules, and flow of the HAR application.
-            </span>
-          </div>
-        </div>
-        <a href="https://drive.google.com/file/d/1AmIexf4K4d24c7skewIRvwvlZhn-8ziG/view?usp=sharing"
-           target="_blank" class="cv-btn">Read</a>
-      </li>
-
-      <!-- TEST CASES -->
-      <li>
-        <div class="paper-section-main">
-          <i class="fas fa-file-pdf"></i>
-          <div>
-            <strong>Test Cases</strong>
-            <span class="desc">
-              Functional and non-functional test cases validating the HAR system.
-            </span>
-          </div>
-        </div>
-        <a href="https://drive.google.com/file/d/10vajChEq_t0_erR_jZMGlvUnpD4fw8FP/view?usp=sharing"
-           target="_blank" class="cv-btn">Read</a>
-      </li>
-
-      <!-- SCREENSHOTS -->
-      <li>
-        <div class="paper-section-main">
-          <i class="fas fa-file-pdf"></i>
-          <div>
-            <strong>Screenshots</strong>
-            <span class="desc">
-              UI screens, training logs, and visual outputs from the HAR project.
-            </span>
-          </div>
-        </div>
-        <a href="https://drive.google.com/file/d/1Vw9kgE0BFEW0kU-ZCD7hp5TseY9QAfkb/view?usp=sharing"
-           target="_blank" class="cv-btn">View</a>
-      </li>
-
-      <!-- SOURCE CODE -->
-      <li>
-        <div class="paper-section-main">
-          <i class="fas fa-file-pdf"></i>
-          <div>
-            <strong>Source Code (Documented)</strong>
-            <span class="desc">
-              Documented code listing and explanation of core scripts and functions.
-            </span>
-          </div>
-        </div>
-        <a href="https://drive.google.com/file/d/1CKbyYx8MUVqhRP0L6-yHjW7H9apRwWKh/view?usp=sharing"
-           target="_blank" class="cv-btn">View</a>
-      </li>
-
-      <!-- CONCLUSION -->
-      <li>
-        <div class="paper-section-main">
-          <i class="fas fa-file-pdf"></i>
-          <div>
-            <strong>Conclusion</strong>
-            <span class="desc">
-              Final results, performance analysis, and takeaway of the HAR model.
-            </span>
-          </div>
-        </div>
-        <a href="https://drive.google.com/file/d/1FYvUfl5kxrl_gh20URwIMFQ2zqsYYLeO/view?usp=sharing"
-           target="_blank" class="cv-btn">Read</a>
-      </li>
-
-      <!-- BIBLIOGRAPHY -->
-      <li>
-        <div class="paper-section-main">
-          <i class="fas fa-file-pdf"></i>
-          <div>
-            <strong>Bibliography</strong>
-            <span class="desc">
-              Complete list of research papers, articles, and datasets referenced.
-            </span>
-          </div>
-        </div>
-        <a href="https://drive.google.com/file/d/1FYvUfl5kxrl_gh20URwIMFQ2zqsYYLeO/view?usp=sharing"
-           target="_blank" class="cv-btn">Read</a>
-      </li>
-
-    </ul>
-  </section>
-
-  <!-- Back to top arrow (already styled in style.css) -->
-  <a href="#" class="top">&#8593;</a>
-
-  <!-- Contact + footer reuse your existing styles if you want them here -->
-  <!-- (optional – you can copy from your dev_cv index if needed) -->
+</footer>
 
 </body>
 </html>
