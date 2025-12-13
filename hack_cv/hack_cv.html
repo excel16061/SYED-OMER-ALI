@@ -2,126 +2,202 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Security, Systems & Reverse Engineering – Technical Narrative</title>
+  <title>Security, Systems & Reverse Engineering</title>
 
+  <!-- Bootstrap & Fonts -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="./style.css">
   <link href="https://fonts.googleapis.com/css?family=Share+Tech+Mono" rel="stylesheet">
+
+  <!-- ✅ YOUR CSS (added exactly, no changes) -->
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: black;
+      font-family: 'Share Tech Mono', monospace;
+    }
+
+    .navbar {
+      background-color: #232;
+      font-size:20px;
+      color: white;
+      position: fixed;
+      overflow: hidden;
+      top: 10;
+      width: 84.5%;
+      z-index:+5;
+    }
+
+    .jumbo-background{
+      background-color: #232;
+      color:#fff;
+      margin-top: 80px;
+      padding: 16px;
+    }
+
+    .profile-img{
+      margin-top: 120px;
+    }
+
+    .btn-git{
+      background-color:#797D7F;
+      color:white;
+    }
+
+    .btn-freeCodeCamp{
+      background-color:#58D68D;
+      color:white;
+    }
+
+    #workTitle{
+      color:grey;
+    }
+
+    li {
+      font-size: 20px;
+    }
+
+    #projectlink {
+      font-size:20px;
+    }
+
+    canvas {
+      position:absolute;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      z-index:-5;
+    }
+  </style>
 </head>
 
 <body>
 
 <div class="container">
 
-  <div class="jumbotron jumbo-background">
-    <h1>Security, Systems & Reverse Engineering</h1>
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-inverse">
+    <ul class="nav navbar-nav">
+      <li><a href="#content">Technical Narrative</a></li>
+    </ul>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <div class="jumbotron jumbo-background" id="content">
+    <h1>Security, Systems & Defensive Reverse Engineering</h1>
     <hr class="star-bright">
 
     <p>
-      My technical interest has consistently centered around understanding how real-world systems fail, how security weaknesses
-      manifest in everyday devices, and how reliability can be restored without causing further harm. Rather than approaching
-      security as an offensive discipline, my work has evolved around defensive analysis, ethical reverse engineering, and
-      recovery-oriented problem solving. This perspective was shaped not by theoretical exercises alone, but by repeated exposure
-      to actual incidents affecting people around me — compromised Android phones, ransomware scares, trojan-infected systems,
-      phishing-driven account takeovers, and devices rendered unusable after unsafe modifications or malicious software.
+      My technical journey has been shaped by a deep interest in understanding how real-world systems fail under stress,
+      misuse, and malicious interference. Rather than approaching security as an offensive discipline, my work has evolved
+      around defensive analysis, ethical reverse engineering, and recovery-oriented system repair. This mindset emerged
+      organically through repeated exposure to real incidents affecting everyday users — compromised Android phones,
+      ransomware scares, trojan infections, phishing-driven account takeovers, and devices rendered unstable after unsafe
+      rooting, flashing, or software modification.
     </p>
 
     <p>
-      One of the most influential areas of my learning has been Android system behavior. Modern Android devices operate as layered
-      systems involving bootloaders, verified boot chains, kernel-space components, system services, and application-level
-      sandboxes. When users attempt rooting, flashing, or customization without understanding these layers, even minor mistakes
-      can result in bootloops, soft-bricks, performance instability, or persistent security exposure. My exploration of Android
-      rooting and flashing has therefore focused on system understanding rather than bypassing safeguards. I studied how
-      partitions interact, how kernel mismatches lead to instability, and how recovery environments function as controlled
-      repair mechanisms.
+      Android systems became a central learning ground for me due to their layered architecture and widespread use.
+      Modern Android devices operate through tightly coupled components including bootloaders, verified boot chains,
+      kernel-space drivers, system services, and application-level sandboxes. When users attempt jailbreaking, rooting,
+      or flashing without understanding these layers, failures often cascade — resulting in bootloops, soft-bricks,
+      degraded security guarantees, or persistent instability. My exploration of Android rooting and flashing therefore
+      focused on understanding system behavior rather than bypassing safeguards.
     </p>
 
     <p>
-      Through this work, I encountered kernel-level issues that manifest in subtle but impactful ways: random reboots, thermal
-      throttling anomalies, driver conflicts, and post-update regressions. Rather than blindly applying fixes, I learned to
-      diagnose these problems by correlating system logs, user actions, and configuration changes. This reinforced a key lesson:
-      stability and security are deeply interconnected. A misconfigured kernel or unsafe module can create openings for
-      exploitation just as easily as it can degrade performance.
+      Through hands-on experimentation on personally owned devices, I learned how kernel mismatches, improper module
+      loading, or incompatible firmware components can introduce subtle but severe issues. These issues often surface
+      as random reboots, overheating, abnormal battery drain, or unexplained performance degradation. Rather than
+      applying superficial fixes, I learned to correlate system logs, recent changes, and hardware constraints to
+      identify root causes. This reinforced a core principle: kernel stability is foundational to both security and
+      performance.
     </p>
 
     <p>
-      Parallel to Android system exploration, I became increasingly involved in helping people recover from malware incidents.
-      Many of these cases involved ransomware scares or trojan infections triggered by unsafe downloads, cracked software,
-      fake update prompts, or phishing links. In nearly every case, the most damaging factor was panic-driven action — users
-      deleting files blindly, installing unverified “fix” tools, or paying attackers without understanding the situation.
-      My approach emphasized calm, structured response: isolating affected devices, preserving important data, and using
-      reputable diagnostic tools to assess the scope of compromise.
+      In parallel, I became increasingly involved in helping people recover from malware-related incidents. Many of
+      these cases involved ransomware warnings, trojan infections, or RAT-like persistence behaviors triggered by
+      unsafe downloads, cracked software, fake update prompts, or phishing links. In nearly every case, the greatest
+      damage stemmed not from the malware itself, but from panic-driven responses — deleting files blindly, installing
+      unverified “cleanup” tools, or paying attackers without understanding the situation.
     </p>
 
     <p>
-      Reverse engineering played a crucial role in this defensive workflow. By examining suspicious behaviors — unexpected
-      persistence after reboot, unusual permission requests, abnormal network activity, or repeated system prompts — I learned
-      how certain malware families attempt to survive removal. This did not involve developing malware or exploiting systems,
-      but rather understanding indicators of compromise and recognizing patterns common to RAT-like persistence or trojan
-      payload delivery. These observations informed better cleanup strategies and helped users avoid reinfection.
+      My response methodology emphasized calm, structured recovery. This included isolating affected devices,
+      preserving important data, and using reputable diagnostic and security tools to assess the scope of compromise.
+      Reverse engineering played a key role in this defensive workflow. By observing suspicious behaviors — such as
+      persistence across reboots, abnormal permission usage, unexpected background services, or unusual network traffic —
+      I learned how certain trojans and RAT-style malware attempt to survive removal.
     </p>
 
     <p>
-      A recurring theme across both mobile and web-based incidents was social engineering. Many so-called “virus tricks” rely
-      less on technical sophistication and more on psychological manipulation: fake security warnings, urgency-driven messages,
-      or impersonation of trusted services. By analyzing these patterns, I developed methods to help users verify authenticity,
-      recognize malicious intent, and avoid high-risk actions. This included teaching safe browsing habits, encouraging the use
-      of password managers, enabling multi-factor authentication, and maintaining regular backups.
+      This reverse engineering was strictly observational and ethical. I did not develop malware or exploit systems,
+      but instead focused on recognizing indicators of compromise and understanding attacker persistence techniques.
+      These insights informed safer cleanup strategies and helped users avoid reinfection. Over time, I became adept
+      at distinguishing between legitimate system behavior and malicious anomalies — an essential skill in practical
+      security work.
     </p>
 
     <p>
-      Tool usage was always approached responsibly. For malware analysis and cleanup, I relied on reputable scanners, system
-      monitoring utilities, and official platform recovery options rather than unofficial scripts or cracked tools. On Android,
-      this meant using official firmware images, verified recovery environments, and manufacturer-supported diagnostics whenever
-      possible. On desktop and web platforms, it involved endpoint protection tools, network monitoring utilities, and careful
-      review of startup behaviors. The goal was never to “outsmart” the system, but to restore trust and integrity.
+      Social engineering emerged as a recurring pattern across both mobile and web-based incidents. Many so-called
+      “virus tricks” rely less on technical sophistication and more on psychological manipulation — fake security alerts,
+      urgency-driven messages, impersonation of trusted services, or deceptive download prompts. By analyzing these
+      patterns, I developed methods to help users verify authenticity, identify manipulation tactics, and avoid high-risk
+      actions.
     </p>
 
     <p>
-      Over time, this hands-on exposure revealed how vulnerabilities often emerge from the intersection of convenience and
-      ignorance. Users disable protections for short-term gains, install unverified applications, or ignore update prompts,
-      unknowingly weakening their security posture. My role in these situations evolved into one of education as much as
-      technical repair. Explaining why certain practices are dangerous proved just as important as removing malicious software.
+      Web-based vulnerabilities followed similar themes. Credential theft via phishing, malicious browser extensions,
+      and drive-by downloads were common vectors. Helping users recover required comprehensive audits of accounts,
+      password resets, session invalidation, and careful review of linked services. These experiences reinforced the
+      importance of layered defense rather than reliance on any single security tool.
     </p>
 
     <p>
-      Web-based vulnerabilities presented a similar pattern. Credential theft through phishing, malicious browser extensions,
-      and drive-by downloads were common vectors. By examining browser behaviors, permission models, and session handling, I
-      learned how attackers exploit trust boundaries. Helping users recover often required a full audit of accounts, password
-      resets, session invalidation, and careful review of linked services. These experiences reinforced the importance of
-      layered defense rather than reliance on a single tool.
+      Tool usage was always approached responsibly. For malware cleanup, I relied on reputable scanners, system monitoring
+      utilities, and official platform recovery mechanisms rather than unofficial scripts or cracked software. On Android,
+      this meant using official firmware images, verified recovery environments, and manufacturer-supported diagnostics
+      whenever possible. The objective was never to “outsmart” the system, but to restore integrity and trust.
     </p>
 
     <p>
-      This body of work shaped my broader technical philosophy: systems must be designed and maintained with failure in mind.
-      Whether dealing with kernel instability, malware infection, or human error, resilient systems assume compromise is
-      possible and focus on containment, recovery, and learning. My interest in reverse engineering stems from this desire to
-      understand failure deeply enough to prevent it in the future.
+      Across these experiences, I observed that vulnerabilities often arise at the intersection of convenience and
+      ignorance. Users disable protections for short-term gains, install unverified applications, or delay updates,
+      unknowingly weakening their security posture. My role increasingly became educational — explaining why certain
+      behaviors are risky proved just as important as removing malicious software.
     </p>
 
     <p>
-      Importantly, all of this work has been conducted within ethical boundaries. I do not engage in unauthorized access,
+      These real-world encounters shaped my broader technical philosophy: systems must be designed and maintained with
+      failure in mind. Whether dealing with kernel instability, malware infection, or human error, resilient systems
+      assume compromise is possible and focus on containment, recovery, and continuous improvement. My interest in
+      reverse engineering stems from this desire to understand failure deeply enough to prevent it in the future.
+    </p>
+
+    <p>
+      All of this work has been conducted within strict ethical boundaries. I do not engage in unauthorized access,
       exploitation, or bypassing security controls for malicious purposes. My learning has always been rooted in consent,
-      personal device ownership, or assisting others who explicitly seek help. This ethical grounding is essential, as it
-      ensures that technical curiosity translates into real-world value rather than harm.
+      personal device ownership, or assisting users who explicitly seek help. This ethical grounding ensures that technical
+      curiosity translates into protection and reliability rather than harm.
     </p>
 
     <p>
-      Looking forward, I see this experience as foundational preparation for advanced research in systems security,
-      trustworthy computing, and resource-aware software design. The challenges I encountered — unstable kernels, insecure
-      update paths, persistent malware, and human-centered vulnerabilities — highlight the need for systems that are not only
-      powerful, but understandable, recoverable, and secure by design. My goal is to contribute to this space by developing
-      solutions that acknowledge real-world constraints and user behavior.
+      Looking forward, I see these experiences as foundational preparation for advanced research in systems security,
+      trustworthy computing, and reliable software design. The challenges I encountered — unstable kernels, insecure
+      update paths, persistent malware, and human-centered vulnerabilities — highlight the need for systems that are not
+      only powerful, but understandable, recoverable, and secure by design.
     </p>
 
     <p>
       In summary, my work across Android system debugging, defensive reverse engineering, malware recovery, and vulnerability
-      awareness reflects a consistent focus on reliability, ethics, and user protection. These experiences transformed abstract
-      security concepts into practical understanding and reinforced my commitment to building systems that can be trusted even
-      when things go wrong.
+      awareness reflects a consistent focus on reliability, ethics, and user protection. These experiences transformed
+      abstract security concepts into practical understanding and reinforced my commitment to building systems that remain
+      dependable even when things go wrong.
     </p>
-
   </div>
 
   <footer class="container-fluid text-center">
@@ -129,6 +205,8 @@
   </footer>
 
 </div>
+
+<canvas id="c"></canvas>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
