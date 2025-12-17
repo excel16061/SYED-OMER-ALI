@@ -1,0 +1,605 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Phone Systems Lab — Android & iOS Flashing Study Guide</title>
+  <style>
+    :root{
+      --bg:#0b0f14; --panel:#101826; --panel2:#0f1724; --text:#e7eef8; --muted:#9fb0c3;
+      --accent:#6ea8fe; --ok:#2dd4bf; --warn:#fbbf24; --bad:#fb7185; --border:#22324a;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    body{margin:0; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+      background: radial-gradient(1200px 700px at 15% -10%, rgba(110,168,254,.22), transparent 60%),
+                  radial-gradient(900px 600px at 85% 0%, rgba(45,212,191,.15), transparent 55%),
+                  var(--bg);
+      color:var(--text);
+    }
+    a{color:var(--accent); text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:1100px; margin:0 auto; padding:28px 18px 60px}
+    .top{
+      display:flex; gap:14px; align-items:flex-start; justify-content:space-between; flex-wrap:wrap;
+      padding:18px; border:1px solid var(--border); border-radius:18px; background:linear-gradient(180deg, rgba(16,24,38,.96), rgba(15,23,36,.88));
+      box-shadow: var(--shadow);
+    }
+    .title h1{margin:0 0 8px; font-size:22px; letter-spacing:.3px}
+    .title p{margin:0; color:var(--muted); font-size:13.5px; line-height:1.5}
+    .pillrow{display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end}
+    .pill{
+      display:inline-flex; gap:8px; align-items:center;
+      border:1px solid var(--border); padding:8px 10px; border-radius:999px; color:var(--muted);
+      background:rgba(15,23,36,.65);
+      font-size:12px;
+    }
+    .dot{width:8px; height:8px; border-radius:50%}
+    .dot.ok{background:var(--ok)} .dot.warn{background:var(--warn)} .dot.bad{background:var(--bad)}
+    .toolbar{
+      margin-top:16px; display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between;
+      padding:12px 14px; border:1px solid var(--border); border-radius:14px; background:rgba(16,24,38,.72);
+    }
+    .tabs{display:flex; gap:8px; flex-wrap:wrap}
+    .tabbtn{
+      border:1px solid var(--border); background:rgba(15,23,36,.6); color:var(--muted);
+      padding:9px 12px; border-radius:12px; cursor:pointer; font-size:12.5px;
+      transition: transform .08s ease, background .2s ease, color .2s ease, border .2s ease;
+    }
+    .tabbtn:hover{transform: translateY(-1px); color:var(--text)}
+    .tabbtn.active{background: rgba(110,168,254,.14); color: var(--text); border-color: rgba(110,168,254,.45)}
+    .search{
+      display:flex; gap:8px; align-items:center; flex:1; justify-content:flex-end;
+      min-width:260px;
+    }
+    input[type="search"]{
+      width:min(420px, 100%); padding:10px 12px; border-radius:12px; border:1px solid var(--border);
+      background:rgba(10,16,26,.75); color:var(--text); outline:none;
+    }
+    input[type="search"]::placeholder{color:rgba(159,176,195,.75)}
+    .btn{
+      border:1px solid var(--border); background:rgba(15,23,36,.6); color:var(--text);
+      padding:10px 12px; border-radius:12px; cursor:pointer; font-size:12.5px;
+    }
+    .btn:hover{border-color: rgba(110,168,254,.45)}
+    .grid{display:grid; grid-template-columns: 1.25fr .75fr; gap:14px; margin-top:14px}
+    @media (max-width: 920px){ .grid{grid-template-columns: 1fr} }
+    .card{
+      border:1px solid var(--border); border-radius:18px; background:rgba(16,24,38,.72);
+      box-shadow: var(--shadow); overflow:hidden;
+    }
+    .card header{
+      padding:14px 16px; border-bottom:1px solid rgba(34,50,74,.8);
+      background:linear-gradient(180deg, rgba(15,23,36,.65), rgba(16,24,38,.25));
+    }
+    .card header h2{margin:0; font-size:15px; letter-spacing:.3px}
+    .card header p{margin:6px 0 0; color:var(--muted); font-size:12.5px; line-height:1.5}
+    .card .body{padding:14px 16px}
+    .notice{
+      padding:12px 12px; border:1px dashed rgba(251,191,36,.55); border-radius:14px;
+      background:rgba(251,191,36,.09); color:rgba(255,255,255,.92); font-size:12.5px; line-height:1.6;
+    }
+    .notice strong{color: #ffe08a}
+    .okbox{
+      padding:12px 12px; border:1px dashed rgba(45,212,191,.5); border-radius:14px;
+      background:rgba(45,212,191,.08); color:rgba(255,255,255,.92); font-size:12.5px; line-height:1.6;
+    }
+    .badbox{
+      padding:12px 12px; border:1px dashed rgba(251,113,133,.55); border-radius:14px;
+      background:rgba(251,113,133,.07); color:rgba(255,255,255,.92); font-size:12.5px; line-height:1.6;
+    }
+    .kvs{display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:12px}
+    @media (max-width: 520px){ .kvs{grid-template-columns: 1fr} }
+    .kv{padding:10px 12px; border:1px solid rgba(34,50,74,.85); border-radius:14px; background:rgba(15,23,36,.55)}
+    .kv .k{color:var(--muted); font-size:11.5px}
+    .kv .v{margin-top:6px; font-size:12.8px; line-height:1.5}
+    .acc{border-top:1px solid rgba(34,50,74,.8)}
+    details{padding:12px 0}
+    summary{
+      list-style:none; cursor:pointer; padding:10px 0; font-size:13px; color:var(--text);
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+    }
+    summary::-webkit-details-marker{display:none}
+    .chev{opacity:.7; transition: transform .18s ease}
+    details[open] .chev{transform: rotate(180deg)}
+    .content{color:var(--muted); font-size:12.7px; line-height:1.65; padding:0 0 10px}
+    .content ul{margin:8px 0 0 18px}
+    .content li{margin:6px 0}
+    code, pre{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+    }
+    pre{
+      margin:10px 0 0; padding:10px 12px; border-radius:14px;
+      background:rgba(10,16,26,.85); border:1px solid rgba(34,50,74,.85);
+      overflow:auto; color:#dbeafe; font-size:12.2px; line-height:1.55;
+      position:relative;
+    }
+    .copyrow{display:flex; gap:8px; align-items:center; justify-content:space-between; flex-wrap:wrap; margin-top:10px}
+    .tag{font-size:11px; color:var(--muted); border:1px solid rgba(34,50,74,.85); background:rgba(15,23,36,.55); padding:6px 8px; border-radius:999px}
+    .chklist label{display:flex; gap:10px; align-items:flex-start; margin:10px 0; color:var(--muted); font-size:12.7px; line-height:1.5}
+    .chklist input{margin-top:2px}
+    .muted{color:var(--muted)}
+    .small{font-size:12px}
+    .right .card{position:sticky; top:14px}
+    @media (max-width: 920px){ .right .card{position:static} }
+    .footer{margin-top:18px; color:rgba(159,176,195,.85); font-size:12px; text-align:center}
+    .hide{display:none !important}
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <section class="top">
+      <div class="title">
+        <h1>Phone Systems Lab</h1>
+        <p>
+          A study-friendly, ethical guide to <b>Android flashing</b>, <b>iOS restore</b>, and phone system concepts.
+          Designed for portfolios & learning — not for bypassing protections.
+        </p>
+      </div>
+      <div class="pillrow">
+        <div class="pill"><span class="dot ok"></span> Consent & ownership first</div>
+        <div class="pill"><span class="dot warn"></span> Backup before changes</div>
+        <div class="pill"><span class="dot bad"></span> No jailbreak/exploit content</div>
+      </div>
+    </section>
+
+    <section class="toolbar">
+      <div class="tabs" role="tablist" aria-label="Sections">
+        <button class="tabbtn active" data-tab="android" role="tab">Android</button>
+        <button class="tabbtn" data-tab="ios" role="tab">iOS</button>
+        <button class="tabbtn" data-tab="tools" role="tab">Tools</button>
+        <button class="tabbtn" data-tab="glossary" role="tab">Glossary</button>
+        <button class="tabbtn" data-tab="safety" role="tab">Safety</button>
+      </div>
+
+      <div class="search">
+        <input id="q" type="search" placeholder="Search topics (e.g., bootloader, fastboot, DFU, partitions)…" />
+        <button class="btn" id="clearBtn" title="Clear search">Clear</button>
+      </div>
+    </section>
+
+    <div class="grid">
+      <!-- LEFT -->
+      <main class="left" id="main">
+        <!-- ANDROID -->
+        <section class="card tabpane" id="tab-android">
+          <header>
+            <h2>Android flashing & customization — safe learning path</h2>
+            <p>High-level steps that apply across many Android devices. Avoids bypassing locks; focuses on official + standard tooling.</p>
+          </header>
+          <div class="body">
+            <div class="notice">
+              <strong>Important:</strong> Flashing can erase data, void warranty, and (if done wrong) brick a device.
+              Only work on <b>devices you own</b> or where you have <b>written permission</b>.
+              Prefer <b>official firmware</b> and manufacturer documentation for your exact model.
+            </div>
+
+            <div class="kvs">
+              <div class="kv">
+                <div class="k">Typical official recovery path</div>
+                <div class="v">Stock firmware → official tool / recovery → factory reset (when needed)</div>
+              </div>
+              <div class="kv">
+                <div class="k">Typical customization learning path</div>
+                <div class="v">Backup → OEM unlock (if allowed) → ADB/Fastboot basics → recovery → ROM (optional)</div>
+              </div>
+            </div>
+
+            <div class="acc">
+              <details>
+                <summary>
+                  1) Pre-checks (what to verify before touching anything)
+                  <span class="chev">▾</span>
+                </summary>
+                <div class="content">
+                  <ul>
+                    <li><b>Exact device model</b> (marketing name isn’t enough) + region/carrier variant.</li>
+                    <li><b>Battery</b> ≥ 60% and a reliable USB cable.</li>
+                    <li><b>Backups</b>: photos, authenticator apps, chats, documents, and app data.</li>
+                    <li><b>Bootloader policy</b>: some vendors/carriers don’t allow unlocking.</li>
+                    <li><b>Encryption / accounts</b>: remove accounts if you plan a full wipe; keep recovery codes safe.</li>
+                  </ul>
+                </div>
+              </details>
+
+              <details>
+                <summary>
+                  2) ADB & Fastboot basics (study-friendly commands)
+                  <span class="chev">▾</span>
+                </summary>
+                <div class="content">
+                  <p>These are standard, widely documented commands used for device communication. Always confirm your device supports them.</p>
+
+                  <div class="copyrow">
+                    <span class="tag">Device detection</span>
+                    <button class="btn" data-copy="adb devices">Copy</button>
+                  </div>
+                  <pre><code>adb devices</code></pre>
+
+                  <div class="copyrow">
+                    <span class="tag">Reboot to bootloader</span>
+                    <button class="btn" data-copy="adb reboot bootloader">Copy</button>
+                  </div>
+                  <pre><code>adb reboot bootloader</code></pre>
+
+                  <div class="copyrow">
+                    <span class="tag">Fastboot device check</span>
+                    <button class="btn" data-copy="fastboot devices">Copy</button>
+                  </div>
+                  <pre><code>fastboot devices</code></pre>
+
+                  <p class="small muted">
+                    Note: Unlocking a bootloader is vendor-specific and may require official steps (request codes, OEM toggle, waiting periods).
+                    This page intentionally does not include bypass methods.
+                  </p>
+                </div>
+              </details>
+
+              <details>
+                <summary>
+                  3) Understanding partitions (why “wrong file” breaks devices)
+                  <span class="chev">▾</span>
+                </summary>
+                <div class="content">
+                  <ul>
+                    <li><b>boot</b>: kernel + ramdisk (boot process core)</li>
+                    <li><b>vendor</b>: hardware-specific components</li>
+                    <li><b>system</b>: Android OS framework (often in dynamic partitions)</li>
+                    <li><b>recovery</b>: recovery environment (not always separate on modern devices)</li>
+                    <li><b>vbmeta / AVB</b>: verified boot metadata (integrity model)</li>
+                    <li><b>super</b>: container for dynamic partitions (A/B devices often)</li>
+                  </ul>
+                  <p class="small muted">
+                    Portfolio-friendly framing: “I study the boot chain and partition layout to avoid mismatches and to improve reliability.”
+                  </p>
+                </div>
+              </details>
+
+              <details>
+                <summary>
+                  4) Stock restore vs custom ROM (when to choose which)
+                  <span class="chev">▾</span>
+                </summary>
+                <div class="content">
+                  <ul>
+                    <li><b>Stock restore</b> is best for: stability, resale, warranty, and getting back to a known-good state.</li>
+                    <li><b>Custom ROM learning</b> is best for: OS study, longer support on older devices, UI preferences (when supported).</li>
+                  </ul>
+                  <p class="small muted">
+                    Always choose a ROM that exactly matches your device codename/variant. “Close enough” is how bricks happen.
+                  </p>
+                </div>
+              </details>
+
+              <details>
+                <summary>
+                  5) Common failure patterns (and how to think like a systems engineer)
+                  <span class="chev">▾</span>
+                </summary>
+                <div class="content">
+                  <ul>
+                    <li><b>Bootloops</b>: often kernel/ramdisk mismatch, bad module, or incompatible vendor stack.</li>
+                    <li><b>Random reboots / heat</b>: governor/thermal policy or driver issues; test changes one at a time.</li>
+                    <li><b>No network / no camera</b>: vendor blobs or firmware mismatch (common after cross-variant flashing).</li>
+                    <li><b>Soft-brick</b>: device still enters bootloader/recovery → usually recoverable with correct stock images.</li>
+                  </ul>
+                  <p class="small muted">Practice: keep a change log. One change per test. Save logs. Roll back methodically.</p>
+                </div>
+              </details>
+            </div>
+          </div>
+        </section>
+
+        <!-- iOS -->
+        <section class="card tabpane hide" id="tab-ios">
+          <header>
+            <h2>iOS restore & device recovery — official and safe</h2>
+            <p>iOS customization beyond Apple’s model often crosses into jailbreak territory; this page focuses on official restore & reliability.</p>
+          </header>
+          <div class="body">
+            <div class="okbox">
+              iOS is designed around a locked, integrity-verified system. The safest learning path is:
+              <b>backup → update/restore → recovery/DFU when needed</b>.
+              This keeps your portfolio clean and professional.
+            </div>
+
+            <div class="acc">
+              <details>
+                <summary>
+                  1) Backups (before any restore)
+                  <span class="chev">▾</span>
+                </summary>
+                <div class="content">
+                  <ul>
+                    <li><b>iCloud Backup</b> (easy) or <b>Encrypted local backup</b> (complete) via Finder/iTunes.</li>
+                    <li>Save important app recovery codes (authenticator apps).</li>
+                    <li>Know your Apple ID credentials and recovery methods.</li>
+                  </ul>
+                </div>
+              </details>
+
+              <details>
+                <summary>
+                  2) Update vs Restore (what each means)
+                  <span class="chev">▾</span>
+                </summary>
+                <div class="content">
+                  <ul>
+                    <li><b>Update</b>: keeps data; fixes many issues if system is stable enough.</li>
+                    <li><b>Restore</b>: wipes device and reinstalls iOS; best for persistent instability.</li>
+                  </ul>
+                </div>
+              </details>
+
+              <details>
+                <summary>
+                  3) Recovery Mode (when the phone won’t boot normally)
+                  <span class="chev">▾</span>
+                </summary>
+                <div class="content">
+                  <p>
+                    Recovery mode lets Finder/iTunes reinstall iOS without advanced low-level steps.
+                    Apple’s exact button sequence varies by model (Face ID vs Home button).
+                  </p>
+                  <ul>
+                    <li>Connect to Mac/PC → open Finder/iTunes → enter recovery mode → choose <b>Update</b> first.</li>
+                    <li>If Update fails, choose <b>Restore</b> (data loss unless you have backups).</li>
+                  </ul>
+                </div>
+              </details>
+
+              <details>
+                <summary>
+                  4) DFU Mode (deeper restore)
+                  <span class="chev">▾</span>
+                </summary>
+                <div class="content">
+                  <p>
+                    DFU is a deeper recovery used when standard restore fails. It’s still an official restore path when used properly.
+                    Follow Apple-aligned guides for your exact model.
+                  </p>
+                  <div class="notice">
+                    <strong>Safety note:</strong> This page does not provide device-specific DFU sequences to avoid mistakes.
+                    Use Apple support documentation for the correct sequence for your model.
+                  </div>
+                </div>
+              </details>
+
+              <details>
+                <summary>
+                  5) “IPSW” and firmware files (what they are, safely)
+                  <span class="chev">▾</span>
+                </summary>
+                <div class="content">
+                  <ul>
+                    <li><b>IPSW</b> is the iOS firmware package used by Finder/iTunes.</li>
+                    <li>Only use firmware sources that are reputable and match your exact device model.</li>
+                    <li>Apple’s signing window matters; older versions may not be installable.</li>
+                  </ul>
+                </div>
+              </details>
+            </div>
+          </div>
+        </section>
+
+        <!-- TOOLS -->
+        <section class="card tabpane hide" id="tab-tools">
+          <header>
+            <h2>Tools & concepts (what you’ll hear in phone system work)</h2>
+            <p>A curated list of standard, reputable tools and what they’re used for — framed for learning and reliability.</p>
+          </header>
+          <div class="body">
+            <div class="kvs">
+              <div class="kv">
+                <div class="k">Android Platform Tools</div>
+                <div class="v">ADB / Fastboot for standard device communication and bootloader-level operations.</div>
+              </div>
+              <div class="kv">
+                <div class="k">OEM Firmware Tools</div>
+                <div class="v">Vendor-specific restore tools (varies by brand). Prefer official downloads.</div>
+              </div>
+              <div class="kv">
+                <div class="k">iOS Restore Tools</div>
+                <div class="v">Finder (macOS) / iTunes (Windows) for update, restore, recovery, DFU.</div>
+              </div>
+              <div class="kv">
+                <div class="k">Logs & Diagnostics</div>
+                <div class="v">Android logcat, system reports, crash logs—useful for reliability debugging.</div>
+              </div>
+            </div>
+
+            <div class="acc">
+              <details>
+                <summary>Recommended workflow habits (portfolio-friendly) <span class="chev">▾</span></summary>
+                <div class="content">
+                  <ul>
+                    <li>Keep a <b>change log</b>: what changed, when, why.</li>
+                    <li>Do <b>one change per test</b>. Measure impact. Roll back if needed.</li>
+                    <li>Prefer <b>official firmware</b> and documented support paths.</li>
+                    <li>Don’t “mix” variants (region/carrier). Model mismatch is the #1 brick cause.</li>
+                    <li>Backups aren’t optional. They are part of engineering discipline.</li>
+                  </ul>
+                </div>
+              </details>
+
+              <details>
+                <summary>What “custom ROM” means (safe definition) <span class="chev">▾</span></summary>
+                <div class="content">
+                  <p>
+                    A custom ROM is a community-built Android OS image used for learning, extended support, or preferences.
+                    It typically requires bootloader unlocking (if permitted) and careful device matching.
+                  </p>
+                </div>
+              </details>
+            </div>
+          </div>
+        </section>
+
+        <!-- GLOSSARY -->
+        <section class="card tabpane hide" id="tab-glossary">
+          <header>
+            <h2>Glossary (fast definitions)</h2>
+            <p>Short, interview-ready explanations you can use in your portfolio.</p>
+          </header>
+          <div class="body">
+            <div class="acc">
+              <details>
+                <summary>Bootloader <span class="chev">▾</span></summary>
+                <div class="content">The first stage that starts the device and decides what to boot. Vendors may lock it to enforce integrity.</div>
+              </details>
+              <details>
+                <summary>Verified Boot / Integrity checks <span class="chev">▾</span></summary>
+                <div class="content">Mechanisms that ensure system partitions haven’t been tampered with; increases trust and reduces persistent corruption.</div>
+              </details>
+              <details>
+                <summary>Recovery mode <span class="chev">▾</span></summary>
+                <div class="content">A minimal environment used to update/restore the OS when the normal system won’t boot.</div>
+              </details>
+              <details>
+                <summary>DFU mode (iOS) <span class="chev">▾</span></summary>
+                <div class="content">A deeper restore mode used when standard recovery fails. Still used for official restore flows.</div>
+              </details>
+              <details>
+                <summary>Dynamic partitions / A/B updates <span class="chev">▾</span></summary>
+                <div class="content">Modern Android layout that supports seamless updates and flexible partition sizing (e.g., “super” partition).</div>
+              </details>
+              <details>
+                <summary>Soft-brick vs hard-brick <span class="chev">▾</span></summary>
+                <div class="content">Soft-brick usually still reaches recovery/bootloader (recoverable). Hard-brick doesn’t power/respond (hardware or deep firmware issue).</div>
+              </details>
+            </div>
+          </div>
+        </section>
+
+        <!-- SAFETY -->
+        <section class="card tabpane hide" id="tab-safety">
+          <header>
+            <h2>Safety & ethics (why this page stays “clean”)</h2>
+            <p>Built for learning, credibility, and professional impressions.</p>
+          </header>
+          <div class="body">
+            <div class="badbox">
+              This guide does <b>not</b> include jailbreak instructions, bypass methods, unauthorized access, or “workarounds” for locked devices.
+              That content can be unsafe, illegal, and harmful — and it can also look bad on a portfolio.
+            </div>
+
+            <div class="chklist" style="margin-top:12px">
+              <label><input type="checkbox"> I only work on devices I own or have explicit permission to service.</label>
+              <label><input type="checkbox"> I back up critical data before any update/restore/flash attempt.</label>
+              <label><input type="checkbox"> I prefer official firmware sources and vendor documentation for exact models.</label>
+              <label><input type="checkbox"> I keep a change log and test one change at a time.</label>
+              <label><input type="checkbox"> I treat system integrity as part of reliability engineering.</label>
+            </div>
+
+            <div class="okbox" style="margin-top:12px">
+              Portfolio framing idea: <b>“I study phone OS boot processes, recovery pathways, and reliability patterns to improve system integrity.”</b>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <!-- RIGHT -->
+      <aside class="right">
+        <section class="card">
+          <header>
+            <h2>Quick checklist</h2>
+            <p>Use this before linking this page on your portfolio.</p>
+          </header>
+          <div class="body">
+            <div class="chklist">
+              <label><input type="checkbox"> Text stays educational (no exploit vibe).</label>
+              <label><input type="checkbox"> iOS section focuses on restore/recovery only.</label>
+              <label><input type="checkbox"> Android section uses standard ADB/Fastboot only.</label>
+              <label><input type="checkbox"> Includes warnings about data loss and consent.</label>
+              <label><input type="checkbox"> Mentions official sources for exact models.</label>
+            </div>
+
+            <div class="copyrow" style="margin-top:10px">
+              <span class="tag">Shareable link text</span>
+              <button class="btn" id="copyLinkText">Copy</button>
+            </div>
+            <pre id="linkText"><code>Phone Systems Lab — Android flashing & iOS restore (study guide)</code></pre>
+
+            <p class="small muted" style="margin-top:10px">
+              Tip: Host this as a GitHub Pages page and link it from your Projects buttons.
+            </p>
+          </div>
+        </section>
+      </aside>
+    </div>
+
+    <div class="footer">
+      Security • Systems • Reliability • Ethical Learning
+    </div>
+  </div>
+
+  <script>
+    // Tabs
+    const tabButtons = [...document.querySelectorAll(".tabbtn")];
+    const panes = [...document.querySelectorAll(".tabpane")];
+
+    function showTab(name){
+      tabButtons.forEach(b => b.classList.toggle("active", b.dataset.tab === name));
+      panes.forEach(p => p.classList.toggle("hide", p.id !== "tab-" + name));
+      applySearch(document.getElementById("q").value.trim());
+      window.scrollTo({top: 0, behavior:"smooth"});
+    }
+    tabButtons.forEach(btn => btn.addEventListener("click", () => showTab(btn.dataset.tab)));
+
+    // Copy buttons
+    function copyText(text){
+      navigator.clipboard.writeText(text).then(() => {
+        // tiny feedback
+        const t = document.title;
+        document.title = "Copied ✅";
+        setTimeout(()=> document.title = t, 800);
+      });
+    }
+    document.addEventListener("click", (e) => {
+      const btn = e.target.closest("[data-copy]");
+      if(btn) copyText(btn.getAttribute("data-copy"));
+    });
+    document.getElementById("copyLinkText").addEventListener("click", () => {
+      copyText(document.getElementById("linkText").innerText.trim());
+    });
+
+    // Search/filter (within visible tab)
+    const q = document.getElementById("q");
+    const clearBtn = document.getElementById("clearBtn");
+
+    function applySearch(query){
+      const activePane = panes.find(p => !p.classList.contains("hide"));
+      if(!activePane) return;
+
+      const hay = query.toLowerCase();
+      const searchable = activePane.querySelectorAll("details, .kv, .notice, .okbox, .badbox, p, li, pre, h2");
+      searchable.forEach(el => el.classList.remove("hit"));
+
+      if(!hay){
+        // show all details
+        activePane.querySelectorAll("details").forEach(d => d.style.display = "");
+        activePane.querySelectorAll(".kv").forEach(kv => kv.style.display = "");
+        return;
+      }
+
+      // filter: hide details that don't match; keep other content
+      activePane.querySelectorAll("details").forEach(d => {
+        const text = d.innerText.toLowerCase();
+        d.style.display = text.includes(hay) ? "" : "none";
+      });
+
+      activePane.querySelectorAll(".kv").forEach(kv => {
+        const text = kv.innerText.toLowerCase();
+        kv.style.display = text.includes(hay) ? "" : "none";
+      });
+    }
+
+    q.addEventListener("input", () => applySearch(q.value.trim()));
+    clearBtn.addEventListener("click", () => { q.value=""; applySearch(""); q.focus(); });
+
+    // Default: ensure search applies if user reloads with preserved input
+    applySearch(q.value.trim());
+  </script>
+</body>
+</html>
