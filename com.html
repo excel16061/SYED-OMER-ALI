@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TERMINAL // DATA_EXTRACTION</title>
+    <style>
+        :root {
+            --neon-green: #00ff41;
+            --dark-bg: #050505;
+            --panel-bg: #0d0d0d;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--neon-green);
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        /* Scanline effect */
+        body::before {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 10;
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 700px;
+            background: var(--panel-bg);
+            border: 1px solid var(--neon-green);
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+            position: relative;
+            z-index: 5;
+        }
+
+        h2 {
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            border-bottom: 1px solid var(--neon-green);
+            padding-bottom: 10px;
+        }
+
+        .input-group {
+            margin: 20px 0;
+        }
+
+        label {
+            display: block;
+            font-size: 0.75rem;
+            margin-bottom: 8px;
+            opacity: 0.8;
+        }
+
+        input, textarea {
+            width: 100%;
+            background: #000;
+            border: 1px solid #222;
+            color: var(--neon-green);
+            padding: 12px;
+            font-family: 'Courier New', monospace;
+            box-sizing: border-box;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--neon-green);
+            box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+        }
+
+        .system-readout {
+            background: #000;
+            border: 1px dashed #444;
+            padding: 15px;
+            font-size: 0.7rem;
+            line-height: 1.4;
+            height: 120px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background: var(--neon-green);
+            color: #000;
+            border: none;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        button:hover {
+            background: #fff;
+            box-shadow: 0 0 20px #fff;
+        }
+
+        .blink { animation: blinker 1s linear infinite; }
+        @keyframes blinker { 50% { opacity: 0; } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>[DATA_HARVEST_PROTOCOL]</h2>
+    
+    <div class="system-readout" id="log">
+        > INITIALIZING SYSTEM SCANNERS...<br>
+    </div>
+
+    <form id="secureForm">
+        <div class="input-group">
+            <label>> PRIMARY_GMAIL_UPLINK</label>
+            <input type="email" id="email" required placeholder="required@domain.com">
+        </div>
+
+        <div class="input-group">
+            <label>> VOIP_TARGET (OPTIONAL)</label>
+            <input type="tel" id="phone" placeholder="+XX XXX XXX XXXX">
+        </div>
+
+        <div class="input-group">
+            <label>> DATA_PAYLOAD</label>
+            <textarea id="message" rows="3" required placeholder="Enter message for encryption..."></textarea>
+        </div>
+
+        <button type="submit">EXECUTE_TRANSMISSION</button>
+    </form>
+    <p style="font-size: 0.6rem; text-align: center; margin-top: 15px;">
+        STATUS: <span class="blink">LISTENING_FOR_INPUT</span>
+    </p>
+</div>
+
+<script>
+    const log = document.getElementById('log');
+    let sessionID = Math.random().toString(36).substring(2, 15).toUpperCase();
+    
+    // 1. Gather Automatic System Data
+    function updateLog(msg) {
+        log.innerHTML += `> ${msg}<br>`;
+        log.scrollTop = log.scrollHeight;
+    }
+
+    async function initSpecs() {
+        updateLog("LOCAL_SESSION_ID: " + sessionID);
+        updateLog("AGENT: " + navigator.userAgent.substring(0, 50) + "...");
+        updateLog("PLATFORM: " + navigator.platform);
+        updateLog("RESOLUTION: " + window.screen.width + "x" + window.screen.height);
+        
+        try {
+            const res = await fetch('https://api.ipify.org?format=json');
+            const data = await res.json();
+            updateLog("PUBLIC_IP_RESOLVED: " + data.ip);
+            window.userIP = data.ip;
+        } catch (e) {
+            updateLog("IP_RESOLVE_FAILED: Check Connection");
+            window.userIP = "127.0.0.1";
+        }
+    }
+
+    initSpecs();
+
+    // 2. Form Submission & File Creation
+    document.getElementById('secureForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const timestamp = new Date().toISOString();
+        const email = document.getElementById('email').value;
+        const phone = document.getElementById('phone').value || "NOT_PROVIDED";
+        const message = document.getElementById('message').value;
+
+        // Construct the text content
+        const fileContent = `
+=========================================
+      SECURE DATA LOG: ${sessionID}
+=========================================
+TIMESTAMP  : ${timestamp}
+EMAIL      : ${email}
+PHONE      : ${phone}
+MESSAGE    : ${message}
+
+--- SYSTEM METADATA ---
+IP ADDRESS : ${window.userIP}
+BROWSER    : ${navigator.userAgent}
+LANGUAGE   : ${navigator.language}
+CORES      : ${navigator.hardwareConcurrency || 'N/A'}
+SCREEN     : ${window.screen.width}x${window.screen.height}
+=========================================
+`;
+
+        // 3. The "Store" logic (Downloads as data.txt)
+        const blob = new Blob([fileContent], { type: 'text/plain' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = `data_${sessionID}.txt`;
+        
+        updateLog("COMPILING_PAYLOAD...");
+        setTimeout(() => {
+            updateLog("GENERATING_LOCAL_STORAGE...");
+            link.click();
+            updateLog("TRANSMISSION_COMPLETE.");
+            alert("Data compiled into data.txt and stored in your downloads.");
+        }, 1000);
+    });
+</script>
+
+</body>
+</html>
