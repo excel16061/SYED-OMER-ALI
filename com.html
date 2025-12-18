@@ -3,240 +3,258 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TechConnect // Data Portal</title>
+    <title>Device Intel // Dashboard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <style>
         :root {
-            --primary-blue: #007AFF;
-            --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            --glass-bg: rgba(255, 255, 255, 0.8);
+            --accent: #007AFF;
+            --bg: #f8f9fa;
+            --card-bg: #ffffff;
         }
 
         body {
-            background: var(--bg-gradient);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            margin: 0;
             display: flex;
             justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            color: #333;
+            padding: 40px 20px;
         }
 
-        .card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 40px;
+        /* Dashboard Styling */
+        .dashboard {
+            background: var(--card-bg);
+            max-width: 800px;
             width: 100%;
-            max-width: 500px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
         }
 
-        h2 {
-            margin-top: 0;
-            font-weight: 700;
-            color: #1d1d1f;
+        .header {
             text-align: center;
-            letter-spacing: -0.5px;
+            margin-bottom: 30px;
         }
 
-        .status-badge {
-            background: #e1f0ff;
-            color: var(--primary-blue);
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            display: inline-block;
-            margin-bottom: 20px;
+        .header h1 {
+            color: #1d1d1f;
+            font-size: 2rem;
+            margin-bottom: 10px;
         }
 
-        .input-group {
-            margin-bottom: 20px;
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
         }
 
-        label {
+        .info-card {
+            background: #f1f5f9;
+            padding: 20px;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .info-card i {
+            color: var(--accent);
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .info-card label {
             display: block;
-            font-size: 0.85rem;
+            font-size: 0.75rem;
+            color: #64748b;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .info-card span {
+            font-size: 1rem;
+            color: #1e293b;
             font-weight: 600;
-            margin-bottom: 8px;
-            color: #555;
+            word-break: break-all;
+        }
+
+        /* Form Styling */
+        .user-input {
+            border-top: 1px solid #eee;
+            padding-top: 30px;
+        }
+
+        .input-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
         }
 
         input, textarea {
             width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #ddd;
+            padding: 12px;
+            border: 1.5px solid #e2e8f0;
             border-radius: 10px;
-            font-size: 1rem;
             box-sizing: border-box;
-            transition: all 0.3s ease;
-            background: white;
-        }
-
-        input:focus, textarea:focus {
-            outline: none;
-            border-color: var(--primary-blue);
-            box-shadow: 0 0 0 4px rgba(0, 122, 255, 0.1);
-        }
-
-        .system-info {
-            background: rgba(0,0,0,0.03);
-            border-radius: 10px;
-            padding: 15px;
-            font-size: 0.8rem;
-            color: #666;
-            margin-bottom: 25px;
-            line-height: 1.6;
+            font-size: 14px;
         }
 
         button {
             width: 100%;
-            padding: 15px;
-            background: var(--primary-blue);
+            background: var(--accent);
             color: white;
             border: none;
+            padding: 16px;
             border-radius: 12px;
-            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: transform 0.2s, background 0.2s;
+            transition: 0.3s;
+            font-size: 1rem;
         }
 
-        button:hover {
-            background: #0063cc;
-            transform: translateY(-1px);
-        }
+        button:hover { background: #0056b3; }
 
-        button:active {
-            transform: translateY(0);
+        /* PDF Specific Styles (Hidden on Web) */
+        #pdf-content { padding: 20px; position: relative; display: none; }
+        .watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            font-size: 80px;
+            color: rgba(0, 0, 0, 0.05);
+            white-space: nowrap;
+            pointer-events: none;
+            z-index: 0;
         }
-
-        .footer-note {
-            text-align: center;
-            font-size: 0.75rem;
-            color: #999;
-            margin-top: 20px;
+        .pdf-border {
+            border: 10px double var(--accent);
+            padding: 30px;
         }
     </style>
 </head>
 <body>
 
-<div class="card">
-    <div style="text-align: center;">
-        <span class="status-badge" id="session-tag">Initializing...</span>
-    </div>
-    <h2>System Message Portal</h2>
-    
-    <div class="system-info" id="sys-readout">
-        Scanning system environment...
+<div class="dashboard">
+    <div class="header">
+        <i class="fa-solid fa-microchip" style="font-size: 3rem; color: var(--accent);"></i>
+        <h1>Device Intelligence</h1>
+        <p style="color: #666;">Explore your hardware and browser environment details.</p>
     </div>
 
-    <form id="userForm">
-        <div class="input-group">
-            <label>Email Address</label>
-            <input type="email" id="email" placeholder="name@gmail.com" required>
+    <div class="grid" id="stats-grid">
         </div>
 
-        <div class="input-group">
-            <label>Phone Number (Optional)</label>
-            <input type="tel" id="phone" placeholder="+1 (555) 000-0000">
+    <div class="user-input">
+        <h3 style="margin-bottom: 15px;">Finalize Report</h3>
+        <div class="input-row">
+            <input type="email" id="email" placeholder="Gmail / Email Address" required>
+            <input type="tel" id="phone" placeholder="Phone (Optional)">
         </div>
+        <textarea id="message" rows="3" placeholder="Add a personal note to this report..."></textarea>
+        <button onclick="generateReport()">
+            <i class="fa-solid fa-file-pdf"></i> Generate PDF Report
+        </button>
+    </div>
+</div>
 
-        <div class="input-group">
-            <label>Your Message</label>
-            <textarea id="message" rows="3" placeholder="Type your message here..." required></textarea>
+<div id="pdf-template" style="display: none;">
+    <div class="pdf-border">
+        <div class="watermark">Excel16061</div>
+        <div style="text-align: center;">
+            <h1 style="color: #007AFF;">SYSTEM DIAGNOSTIC REPORT</h1>
+            <p>Generated on: <span id="pdf-date"></span></p>
         </div>
-
-        <button type="submit">Submit Information</button>
-    </form>
-
-    <div class="footer-note">
-        Your technical metadata will be bundled with this submission.
+        <hr>
+        <div id="pdf-body"></div>
+        <div style="margin-top: 30px; padding: 15px; background: #f8f9fa;">
+            <strong>User Message:</strong> <p id="pdf-msg"></p>
+            <strong>Contact:</strong> <span id="pdf-contact"></span>
+        </div>
+        <div style="text-align: center; margin-top: 50px; font-size: 10px; color: #999;">
+            Verified System Audit - Excel16061
+        </div>
     </div>
 </div>
 
 <script>
-    const readout = document.getElementById('sys-readout');
-    const sessionTag = document.getElementById('session-tag');
-    let sessionID = 'ID-' + Math.random().toString(36).substring(2, 9).toUpperCase();
+    const dataPoints = [
+        { label: "Public IP", icon: "fa-network-wired", value: "Fetching...", id: "ip" },
+        { label: "Browser", icon: "fa-browser", id: "browser" },
+        { label: "OS / Platform", icon: "fa-laptop", id: "os" },
+        { label: "Screen Resolution", icon: "fa-display", id: "screen" },
+        { label: "Processor Cores", icon: "fa-cpu", id: "cores" },
+        { label: "Device Language", icon: "fa-language", id: "lang" },
+        { label: "Session ID", icon: "fa-fingerprint", id: "sid" }
+    ];
 
-    // Capture System Data
-    async function getTechSpecs() {
-        let ip = "Checking...";
-        try {
-            const res = await fetch('https://api.ipify.org?format=json');
-            const data = await res.json();
-            ip = data.ip;
-        } catch (e) { ip = "Unavailable"; }
+    // Initialize Dashboard
+    function init() {
+        const grid = document.getElementById('stats-grid');
+        dataPoints.forEach(point => {
+            grid.innerHTML += `
+                <div class="info-card">
+                    <i class="fa-solid ${point.icon}"></i>
+                    <label>${point.label}</label>
+                    <span id="data-${point.id}">${point.value || 'N/A'}</span>
+                </div>
+            `;
+        });
 
-        window.collectedData = {
-            ip: ip,
-            browser: navigator.appName,
-            fullUserAgent: navigator.userAgent,
-            platform: navigator.platform,
-            screen: `${window.screen.width}x${window.screen.height}`,
-            lang: navigator.language,
-            time: new Date().toLocaleString()
-        };
+        // Fill Data
+        document.getElementById('data-browser').innerText = navigator.userAgent.split(' ').pop();
+        document.getElementById('data-os').innerText = navigator.platform;
+        document.getElementById('data-screen').innerText = `${window.screen.width} x ${window.screen.height}`;
+        document.getElementById('data-cores').innerText = navigator.hardwareConcurrency + " Logical Cores";
+        document.getElementById('data-lang').innerText = navigator.language.toUpperCase();
+        document.getElementById('data-sid').innerText = Math.random().toString(36).substring(2, 10).toUpperCase();
 
-        readout.innerHTML = `
-            <strong>Detected IP:</strong> ${ip}<br>
-            <strong>Platform:</strong> ${window.collectedData.platform}<br>
-            <strong>Display:</strong> ${window.collectedData.screen}
-        `;
-        sessionTag.innerText = `Session: ${sessionID}`;
+        fetch('https://api.ipify.org?format=json')
+            .then(res => res.json())
+            .then(data => document.getElementById('data-ip').innerText = data.ip)
+            .catch(() => document.getElementById('data-ip').innerText = "127.0.0.1");
     }
 
-    getTechSpecs();
-
-    // Form Handling
-    document.getElementById('userForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
+    async function generateReport() {
         const email = document.getElementById('email').value;
-        const phone = document.getElementById('phone').value || "Not Provided";
-        const message = document.getElementById('message').value;
+        if(!email) return alert("Please enter your Email.");
 
-        const content = `
-TECHCONNECT SYSTEM LOG
-===============================
-SESSION ID : ${sessionID}
-TIMESTAMP  : ${window.collectedData.time}
--------------------------------
-USER EMAIL : ${email}
-USER PHONE : ${phone}
-MESSAGE    : ${message}
--------------------------------
-METADATA:
-IP ADDRESS : ${window.collectedData.ip}
-PLATFORM   : ${window.collectedData.platform}
-BROWSER    : ${window.collectedData.fullUserAgent}
-RESOLUTION : ${window.collectedData.screen}
-LANGUAGE   : ${window.collectedData.lang}
-===============================
-`;
+        // Prepare PDF Template
+        document.getElementById('pdf-date').innerText = new Date().toLocaleString();
+        document.getElementById('pdf-msg').innerText = document.getElementById('message').value || "No note provided.";
+        document.getElementById('pdf-contact').innerText = `${email} | ${document.getElementById('phone').value || 'N/A'}`;
+        
+        let bodyContent = "<h3>Device Specifications:</h3><ul>";
+        dataPoints.forEach(p => {
+            const val = document.getElementById(`data-${p.id}`).innerText;
+            bodyContent += `<li><strong>${p.label}:</strong> ${val}</li>`;
+        });
+        bodyContent += "</ul>";
+        document.getElementById('pdf-body').innerHTML = bodyContent;
 
-        // Create and Download File
-        const blob = new Blob([content], { type: 'text/plain' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `Message_Log_${sessionID}.txt`;
-        document.body.appendChild(a);
-        a.click();
+        // Use html2pdf to download
+        const element = document.getElementById('pdf-template');
+        element.style.display = 'block'; // Briefly show to capture
         
-        // Visual feedback
-        const btn = e.target.querySelector('button');
-        btn.innerText = "✓ Submission Compiled";
-        btn.style.background = "#34C759";
-        
-        setTimeout(() => {
-            alert("Success! Your details and system metadata have been saved to data.txt in your downloads.");
-            window.location.reload();
-        }, 1000);
-    });
+        const opt = {
+            margin: 10,
+            filename: `System_Report_${email}.pdf`,
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+
+        html2pdf().set(opt).from(element).save().then(() => {
+            element.style.display = 'none';
+            alert("Report Generated with Excel16061 Watermark!");
+        });
+    }
+
+    init();
 </script>
 
 </body>
