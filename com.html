@@ -3,219 +3,238 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TERMINAL // DATA_EXTRACTION</title>
+    <title>TechConnect // Data Portal</title>
     <style>
         :root {
-            --neon-green: #00ff41;
-            --dark-bg: #050505;
-            --panel-bg: #0d0d0d;
+            --primary-blue: #007AFF;
+            --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            --glass-bg: rgba(255, 255, 255, 0.8);
         }
 
         body {
-            background-color: var(--dark-bg);
-            color: var(--neon-green);
-            font-family: 'Courier New', Courier, monospace;
+            background: var(--bg-gradient);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            overflow-x: hidden;
+            color: #333;
         }
 
-        /* Scanline effect */
-        body::before {
-            content: " ";
-            display: block;
-            position: absolute;
-            top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
-                        linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            z-index: 10;
-            background-size: 100% 2px, 3px 100%;
-            pointer-events: none;
-        }
-
-        .container {
-            width: 90%;
-            max-width: 700px;
-            background: var(--panel-bg);
-            border: 1px solid var(--neon-green);
-            padding: 30px;
-            box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
-            position: relative;
-            z-index: 5;
+        .card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.3);
         }
 
         h2 {
+            margin-top: 0;
+            font-weight: 700;
+            color: #1d1d1f;
             text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            border-bottom: 1px solid var(--neon-green);
-            padding-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        .status-badge {
+            background: #e1f0ff;
+            color: var(--primary-blue);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
         }
 
         .input-group {
-            margin: 20px 0;
+            margin-bottom: 20px;
         }
 
         label {
             display: block;
-            font-size: 0.75rem;
+            font-size: 0.85rem;
+            font-weight: 600;
             margin-bottom: 8px;
-            opacity: 0.8;
+            color: #555;
         }
 
         input, textarea {
             width: 100%;
-            background: #000;
-            border: 1px solid #222;
-            color: var(--neon-green);
-            padding: 12px;
-            font-family: 'Courier New', monospace;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
             box-sizing: border-box;
+            transition: all 0.3s ease;
+            background: white;
         }
 
         input:focus, textarea:focus {
             outline: none;
-            border-color: var(--neon-green);
-            box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 4px rgba(0, 122, 255, 0.1);
         }
 
-        .system-readout {
-            background: #000;
-            border: 1px dashed #444;
+        .system-info {
+            background: rgba(0,0,0,0.03);
+            border-radius: 10px;
             padding: 15px;
-            font-size: 0.7rem;
-            line-height: 1.4;
-            height: 120px;
-            overflow-y: auto;
-            margin-bottom: 20px;
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 25px;
+            line-height: 1.6;
         }
 
         button {
             width: 100%;
             padding: 15px;
-            background: var(--neon-green);
-            color: #000;
+            background: var(--primary-blue);
+            color: white;
             border: none;
-            font-family: 'Courier New', monospace;
-            font-weight: bold;
-            font-size: 1.1rem;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: transform 0.2s, background 0.2s;
         }
 
         button:hover {
-            background: #fff;
-            box-shadow: 0 0 20px #fff;
+            background: #0063cc;
+            transform: translateY(-1px);
         }
 
-        .blink { animation: blinker 1s linear infinite; }
-        @keyframes blinker { 50% { opacity: 0; } }
+        button:active {
+            transform: translateY(0);
+        }
+
+        .footer-note {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #999;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h2>[DATA_HARVEST_PROTOCOL]</h2>
+<div class="card">
+    <div style="text-align: center;">
+        <span class="status-badge" id="session-tag">Initializing...</span>
+    </div>
+    <h2>System Message Portal</h2>
     
-    <div class="system-readout" id="log">
-        > INITIALIZING SYSTEM SCANNERS...<br>
+    <div class="system-info" id="sys-readout">
+        Scanning system environment...
     </div>
 
-    <form id="secureForm">
+    <form id="userForm">
         <div class="input-group">
-            <label>> PRIMARY_GMAIL_UPLINK</label>
-            <input type="email" id="email" required placeholder="required@domain.com">
+            <label>Email Address</label>
+            <input type="email" id="email" placeholder="name@gmail.com" required>
         </div>
 
         <div class="input-group">
-            <label>> VOIP_TARGET (OPTIONAL)</label>
-            <input type="tel" id="phone" placeholder="+XX XXX XXX XXXX">
+            <label>Phone Number (Optional)</label>
+            <input type="tel" id="phone" placeholder="+1 (555) 000-0000">
         </div>
 
         <div class="input-group">
-            <label>> DATA_PAYLOAD</label>
-            <textarea id="message" rows="3" required placeholder="Enter message for encryption..."></textarea>
+            <label>Your Message</label>
+            <textarea id="message" rows="3" placeholder="Type your message here..." required></textarea>
         </div>
 
-        <button type="submit">EXECUTE_TRANSMISSION</button>
+        <button type="submit">Submit Information</button>
     </form>
-    <p style="font-size: 0.6rem; text-align: center; margin-top: 15px;">
-        STATUS: <span class="blink">LISTENING_FOR_INPUT</span>
-    </p>
+
+    <div class="footer-note">
+        Your technical metadata will be bundled with this submission.
+    </div>
 </div>
 
 <script>
-    const log = document.getElementById('log');
-    let sessionID = Math.random().toString(36).substring(2, 15).toUpperCase();
-    
-    // 1. Gather Automatic System Data
-    function updateLog(msg) {
-        log.innerHTML += `> ${msg}<br>`;
-        log.scrollTop = log.scrollHeight;
-    }
+    const readout = document.getElementById('sys-readout');
+    const sessionTag = document.getElementById('session-tag');
+    let sessionID = 'ID-' + Math.random().toString(36).substring(2, 9).toUpperCase();
 
-    async function initSpecs() {
-        updateLog("LOCAL_SESSION_ID: " + sessionID);
-        updateLog("AGENT: " + navigator.userAgent.substring(0, 50) + "...");
-        updateLog("PLATFORM: " + navigator.platform);
-        updateLog("RESOLUTION: " + window.screen.width + "x" + window.screen.height);
-        
+    // Capture System Data
+    async function getTechSpecs() {
+        let ip = "Checking...";
         try {
             const res = await fetch('https://api.ipify.org?format=json');
             const data = await res.json();
-            updateLog("PUBLIC_IP_RESOLVED: " + data.ip);
-            window.userIP = data.ip;
-        } catch (e) {
-            updateLog("IP_RESOLVE_FAILED: Check Connection");
-            window.userIP = "127.0.0.1";
-        }
+            ip = data.ip;
+        } catch (e) { ip = "Unavailable"; }
+
+        window.collectedData = {
+            ip: ip,
+            browser: navigator.appName,
+            fullUserAgent: navigator.userAgent,
+            platform: navigator.platform,
+            screen: `${window.screen.width}x${window.screen.height}`,
+            lang: navigator.language,
+            time: new Date().toLocaleString()
+        };
+
+        readout.innerHTML = `
+            <strong>Detected IP:</strong> ${ip}<br>
+            <strong>Platform:</strong> ${window.collectedData.platform}<br>
+            <strong>Display:</strong> ${window.collectedData.screen}
+        `;
+        sessionTag.innerText = `Session: ${sessionID}`;
     }
 
-    initSpecs();
+    getTechSpecs();
 
-    // 2. Form Submission & File Creation
-    document.getElementById('secureForm').addEventListener('submit', function(e) {
+    // Form Handling
+    document.getElementById('userForm').addEventListener('submit', function(e) {
         e.preventDefault();
         
-        const timestamp = new Date().toISOString();
         const email = document.getElementById('email').value;
-        const phone = document.getElementById('phone').value || "NOT_PROVIDED";
+        const phone = document.getElementById('phone').value || "Not Provided";
         const message = document.getElementById('message').value;
 
-        // Construct the text content
-        const fileContent = `
-=========================================
-      SECURE DATA LOG: ${sessionID}
-=========================================
-TIMESTAMP  : ${timestamp}
-EMAIL      : ${email}
-PHONE      : ${phone}
+        const content = `
+TECHCONNECT SYSTEM LOG
+===============================
+SESSION ID : ${sessionID}
+TIMESTAMP  : ${window.collectedData.time}
+-------------------------------
+USER EMAIL : ${email}
+USER PHONE : ${phone}
 MESSAGE    : ${message}
-
---- SYSTEM METADATA ---
-IP ADDRESS : ${window.userIP}
-BROWSER    : ${navigator.userAgent}
-LANGUAGE   : ${navigator.language}
-CORES      : ${navigator.hardwareConcurrency || 'N/A'}
-SCREEN     : ${window.screen.width}x${window.screen.height}
-=========================================
+-------------------------------
+METADATA:
+IP ADDRESS : ${window.collectedData.ip}
+PLATFORM   : ${window.collectedData.platform}
+BROWSER    : ${window.collectedData.fullUserAgent}
+RESOLUTION : ${window.collectedData.screen}
+LANGUAGE   : ${window.collectedData.lang}
+===============================
 `;
 
-        // 3. The "Store" logic (Downloads as data.txt)
-        const blob = new Blob([fileContent], { type: 'text/plain' });
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.download = `data_${sessionID}.txt`;
+        // Create and Download File
+        const blob = new Blob([content], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `Message_Log_${sessionID}.txt`;
+        document.body.appendChild(a);
+        a.click();
         
-        updateLog("COMPILING_PAYLOAD...");
+        // Visual feedback
+        const btn = e.target.querySelector('button');
+        btn.innerText = "✓ Submission Compiled";
+        btn.style.background = "#34C759";
+        
         setTimeout(() => {
-            updateLog("GENERATING_LOCAL_STORAGE...");
-            link.click();
-            updateLog("TRANSMISSION_COMPLETE.");
-            alert("Data compiled into data.txt and stored in your downloads.");
+            alert("Success! Your details and system metadata have been saved to data.txt in your downloads.");
+            window.location.reload();
         }, 1000);
     });
 </script>
