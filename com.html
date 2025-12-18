@@ -3,259 +3,241 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Device Intel // Dashboard</title>
+    <title>Device Intelligence // Dashboard</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
         :root {
-            --accent: #007AFF;
-            --bg: #f8f9fa;
-            --card-bg: #ffffff;
+            --primary: #007AFF;
+            --secondary: #5856D6;
+            --glass: rgba(255, 255, 255, 0.7);
         }
 
+        /* Animated Background */
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg);
             margin: 0;
+            font-family: 'SF Pro Display', -apple-system, sans-serif;
+            background: #eef2f3;
+            height: 100vh;
             display: flex;
             justify-content: center;
-            padding: 40px 20px;
-        }
-
-        /* Dashboard Styling */
-        .dashboard {
-            background: var(--card-bg);
-            max-width: 800px;
-            width: 100%;
-            border-radius: 24px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
-            padding: 40px;
-            position: relative;
+            align-items: center;
             overflow: hidden;
         }
 
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
+        .bg-blobs {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            filter: blur(80px);
         }
 
-        .header h1 {
-            color: #1d1d1f;
-            font-size: 2rem;
-            margin-bottom: 10px;
+        .blob {
+            position: absolute;
+            width: 400px; height: 400px;
+            background: var(--primary);
+            border-radius: 50%;
+            animation: move 20s infinite alternate;
+            opacity: 0.4;
         }
 
-        .grid {
+        .blob.two { background: var(--secondary); left: 50%; animation-delay: -5s; }
+
+        @keyframes move {
+            from { transform: translate(-10%, -10%); }
+            to { transform: translate(20%, 20%); }
+        }
+
+        /* Glassmorphism Dashboard */
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 30px;
+            width: 90%;
+            max-width: 900px;
+            height: 85vh;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
+            grid-template-columns: 300px 1fr;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.1);
+            overflow: hidden;
         }
 
-        .info-card {
-            background: #f1f5f9;
-            padding: 20px;
-            border-radius: 16px;
-            border: 1px solid #e2e8f0;
+        /* Sidebar */
+        .sidebar {
+            background: rgba(255, 255, 255, 0.4);
+            padding: 30px;
+            border-right: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
-        .info-card i {
-            color: var(--accent);
-            margin-bottom: 10px;
-            font-size: 1.2rem;
-        }
+        .main-content { padding: 40px; overflow-y: auto; }
 
-        .info-card label {
-            display: block;
-            font-size: 0.75rem;
-            color: #64748b;
-            text-transform: uppercase;
-            font-weight: 700;
-        }
-
-        .info-card span {
-            font-size: 1rem;
-            color: #1e293b;
-            font-weight: 600;
-            word-break: break-all;
-        }
-
-        /* Form Styling */
-        .user-input {
-            border-top: 1px solid #eee;
-            padding-top: 30px;
-        }
-
-        .input-row {
+        .stat-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 15px;
-            margin-bottom: 15px;
+            margin-bottom: 30px;
         }
 
+        .stat-box {
+            background: white;
+            padding: 15px;
+            border-radius: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            transition: 0.3s;
+        }
+
+        .stat-box:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+
+        .stat-box label { font-size: 0.7rem; color: #888; text-transform: uppercase; font-weight: 800; }
+        .stat-box div { font-weight: 600; color: #333; margin-top: 5px; }
+
+        /* Form Styling */
         input, textarea {
             width: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid transparent;
+            border-radius: 12px;
             padding: 12px;
-            border: 1.5px solid #e2e8f0;
-            border-radius: 10px;
-            box-sizing: border-box;
-            font-size: 14px;
+            margin-bottom: 15px;
+            font-family: inherit;
         }
 
         button {
-            width: 100%;
-            background: var(--accent);
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
             color: white;
             border: none;
-            padding: 16px;
-            border-radius: 12px;
-            font-weight: 600;
+            padding: 15px;
+            border-radius: 15px;
+            font-weight: bold;
             cursor: pointer;
+            width: 100%;
             transition: 0.3s;
-            font-size: 1rem;
         }
 
-        button:hover { background: #0056b3; }
-
-        /* PDF Specific Styles (Hidden on Web) */
-        #pdf-content { padding: 20px; position: relative; display: none; }
-        .watermark {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) rotate(-45deg);
-            font-size: 80px;
-            color: rgba(0, 0, 0, 0.05);
-            white-space: nowrap;
-            pointer-events: none;
-            z-index: 0;
-        }
-        .pdf-border {
-            border: 10px double var(--accent);
-            padding: 30px;
-        }
+        /* PDF TEMPLATE (Hidden from UI) */
+        #pdf-export { width: 190mm; display: none; background: white; }
+        .pdf-frame { border: 15px solid var(--primary); padding: 20mm; min-height: 260mm; position: relative; }
+        .wm { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-45deg); font-size: 100px; color: rgba(0,0,0,0.03); font-weight: 900; }
     </style>
 </head>
 <body>
 
-<div class="dashboard">
-    <div class="header">
-        <i class="fa-solid fa-microchip" style="font-size: 3rem; color: var(--accent);"></i>
-        <h1>Device Intelligence</h1>
-        <p style="color: #666;">Explore your hardware and browser environment details.</p>
+<div class="bg-blobs">
+    <div class="blob"></div>
+    <div class="blob two"></div>
+</div>
+
+<div class="glass-card">
+    <div class="sidebar">
+        <div>
+            <h2 style="margin: 0; color: var(--primary);">Excel16061</h2>
+            <p style="font-size: 0.8rem; color: #666;">Intelligence Dashboard</p>
+        </div>
+        
+        <div id="live-scanner" style="font-size: 0.75rem; color: #555;">
+            <p><i class="fa-solid fa-circle-dot" style="color:red"></i> System Live Scan...</p>
+            <hr style="border: 0.5px solid #ddd">
+            <p id="live-time"></p>
+        </div>
+
+        <div class="user-inputs">
+            <input type="email" id="email" placeholder="Gmail/Email">
+            <textarea id="message" rows="2" placeholder="Note..."></textarea>
+            <button onclick="generatePDF()"><i class="fa-solid fa-download"></i> EXPORT PDF</button>
+        </div>
     </div>
 
-    <div class="grid" id="stats-grid">
-        </div>
-
-    <div class="user-input">
-        <h3 style="margin-bottom: 15px;">Finalize Report</h3>
-        <div class="input-row">
-            <input type="email" id="email" placeholder="Gmail / Email Address" required>
-            <input type="tel" id="phone" placeholder="Phone (Optional)">
-        </div>
-        <textarea id="message" rows="3" placeholder="Add a personal note to this report..."></textarea>
-        <button onclick="generateReport()">
-            <i class="fa-solid fa-file-pdf"></i> Generate PDF Report
-        </button>
+    <div class="main-content">
+        <h1 style="margin-top: 0;">Device Insights</h1>
+        <div class="stat-grid" id="ui-grid"></div>
+        <p style="font-size: 0.8rem; color: #999;">*All data is processed locally for your privacy.</p>
     </div>
 </div>
 
-<div id="pdf-template" style="display: none;">
-    <div class="pdf-border">
-        <div class="watermark">Excel16061</div>
+<div id="pdf-export">
+    <div class="pdf-frame">
+        <div class="wm">Excel16061</div>
         <div style="text-align: center;">
-            <h1 style="color: #007AFF;">SYSTEM DIAGNOSTIC REPORT</h1>
-            <p>Generated on: <span id="pdf-date"></span></p>
+            <h1 style="color: #007AFF;">DEVICE DIAGNOSTIC REPORT</h1>
+            <p>Verified Technical Audit</p>
         </div>
         <hr>
-        <div id="pdf-body"></div>
-        <div style="margin-top: 30px; padding: 15px; background: #f8f9fa;">
-            <strong>User Message:</strong> <p id="pdf-msg"></p>
-            <strong>Contact:</strong> <span id="pdf-contact"></span>
-        </div>
-        <div style="text-align: center; margin-top: 50px; font-size: 10px; color: #999;">
-            Verified System Audit - Excel16061
+        <div id="pdf-content-list" style="margin: 30px 0; line-height: 2.5;"></div>
+        <div style="background: #f1f1f1; padding: 20px; border-radius: 10px;">
+            <strong>User Note:</strong> <p id="pdf-note"></p>
+            <strong>Report Requested By:</strong> <span id="pdf-user"></span>
         </div>
     </div>
 </div>
 
 <script>
-    const dataPoints = [
-        { label: "Public IP", icon: "fa-network-wired", value: "Fetching...", id: "ip" },
-        { label: "Browser", icon: "fa-browser", id: "browser" },
-        { label: "OS / Platform", icon: "fa-laptop", id: "os" },
-        { label: "Screen Resolution", icon: "fa-display", id: "screen" },
-        { label: "Processor Cores", icon: "fa-cpu", id: "cores" },
-        { label: "Device Language", icon: "fa-language", id: "lang" },
-        { label: "Session ID", icon: "fa-fingerprint", id: "sid" }
+    const specs = [
+        { label: "Public IP", id: "ip", icon: "fa-globe" },
+        { label: "Operating System", id: "os", icon: "fa-desktop" },
+        { label: "Core Count", id: "cores", icon: "fa-microchip" },
+        { label: "Display Size", id: "screen", icon: "fa-expand" },
+        { label: "Browser Agent", id: "browser", icon: "fa-window-maximize" },
+        { label: "System Language", id: "lang", icon: "fa-language" }
     ];
 
-    // Initialize Dashboard
-    function init() {
-        const grid = document.getElementById('stats-grid');
-        dataPoints.forEach(point => {
+    function loadUI() {
+        const grid = document.getElementById('ui-grid');
+        specs.forEach(s => {
             grid.innerHTML += `
-                <div class="info-card">
-                    <i class="fa-solid ${point.icon}"></i>
-                    <label>${point.label}</label>
-                    <span id="data-${point.id}">${point.value || 'N/A'}</span>
+                <div class="stat-box">
+                    <label><i class="fa-solid ${s.icon}"></i> ${s.label}</label>
+                    <div id="ui-${s.id}">Detecting...</div>
                 </div>
             `;
         });
 
-        // Fill Data
-        document.getElementById('data-browser').innerText = navigator.userAgent.split(' ').pop();
-        document.getElementById('data-os').innerText = navigator.platform;
-        document.getElementById('data-screen').innerText = `${window.screen.width} x ${window.screen.height}`;
-        document.getElementById('data-cores').innerText = navigator.hardwareConcurrency + " Logical Cores";
-        document.getElementById('data-lang').innerText = navigator.language.toUpperCase();
-        document.getElementById('data-sid').innerText = Math.random().toString(36).substring(2, 10).toUpperCase();
+        // Dynamic Data
+        document.getElementById('ui-os').innerText = navigator.platform;
+        document.getElementById('ui-cores').innerText = navigator.hardwareConcurrency + " Cores";
+        document.getElementById('ui-screen').innerText = screen.width + "x" + screen.height;
+        document.getElementById('ui-browser').innerText = navigator.userAgent.split(' ').pop();
+        document.getElementById('ui-lang').innerText = navigator.language.toUpperCase();
 
         fetch('https://api.ipify.org?format=json')
-            .then(res => res.json())
-            .then(data => document.getElementById('data-ip').innerText = data.ip)
-            .catch(() => document.getElementById('data-ip').innerText = "127.0.0.1");
+            .then(r => r.json()).then(d => document.getElementById('ui-ip').innerText = d.ip);
+
+        setInterval(() => {
+            document.getElementById('live-time').innerText = "Timestamp: " + new Date().toLocaleTimeString();
+        }, 1000);
     }
 
-    async function generateReport() {
+    function generatePDF() {
         const email = document.getElementById('email').value;
-        if(!email) return alert("Please enter your Email.");
+        if(!email) return alert("Email Required");
 
-        // Prepare PDF Template
-        document.getElementById('pdf-date').innerText = new Date().toLocaleString();
-        document.getElementById('pdf-msg').innerText = document.getElementById('message').value || "No note provided.";
-        document.getElementById('pdf-contact').innerText = `${email} | ${document.getElementById('phone').value || 'N/A'}`;
+        document.getElementById('pdf-user').innerText = email;
+        document.getElementById('pdf-note').innerText = document.getElementById('message').value || "None";
         
-        let bodyContent = "<h3>Device Specifications:</h3><ul>";
-        dataPoints.forEach(p => {
-            const val = document.getElementById(`data-${p.id}`).innerText;
-            bodyContent += `<li><strong>${p.label}:</strong> ${val}</li>`;
+        let listHtml = "<ul>";
+        specs.forEach(s => {
+            const val = document.getElementById(`ui-${s.id}`).innerText;
+            listHtml += `<li><strong>${s.label}:</strong> ${val}</li>`;
         });
-        bodyContent += "</ul>";
-        document.getElementById('pdf-body').innerHTML = bodyContent;
+        document.getElementById('pdf-content-list').innerHTML = listHtml + "</ul>";
 
-        // Use html2pdf to download
-        const element = document.getElementById('pdf-template');
-        element.style.display = 'block'; // Briefly show to capture
-        
-        const opt = {
-            margin: 10,
-            filename: `System_Report_${email}.pdf`,
-            image: { type: 'jpeg', quality: 0.98 },
+        const element = document.getElementById('pdf-export');
+        element.style.display = 'block';
+
+        html2pdf().set({
+            margin: 0,
+            filename: `Report_Excel16061.pdf`,
             html2canvas: { scale: 2 },
             jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-        };
-
-        html2pdf().set(opt).from(element).save().then(() => {
-            element.style.display = 'none';
-            alert("Report Generated with Excel16061 Watermark!");
-        });
+        }).from(element).save().then(() => element.style.display = 'none');
     }
 
-    init();
+    loadUI();
 </script>
-
 </body>
 </html>
