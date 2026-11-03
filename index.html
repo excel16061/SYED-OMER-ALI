@@ -181,6 +181,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 </a>
 
           <a class="btn" href="mailto:omer@exetech.dev">omer@exetech.dev</a>
+          <a class="btn" href="mailto:omar16061cm@gmail.com">omar16061cm@gmail.com</a>
         </div>
       </div>
       <figure class="figure">
@@ -254,31 +255,42 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 
   <section id="projects">
     <div class="wrap">
-      <div class="sec-head"><span class="eyebrow">Earlier projects</span><h2>Selected work</h2></div>
+      <div class="sec-head"><span class="eyebrow">Projects</span><h2>Selected work</h2></div>
       <div class="projects">
         <article class="proj">
-          <div class="top"><h3>Human Activity Recognition</h3><span class="yr">2021–22</span></div>
-          <p>Undergraduate research. End-to-end pipeline that turns video frames into activity labels, using transfer learning on Kinetics and OpenCV preprocessing, plus RFID signal patterns for motion interpretation. Led the modeling team.</p>
-          <span class="result">96.95% accuracy</span>
-          <div class="tags"><span>PyTorch</span><span>VGG16</span><span>OpenCV</span><span>RFID</span></div>
+          <div class="top"><h3>VulnTrace</h3><span class="yr">2026</span></div>
+          <p>Evidence-driven vulnerability analysis linking advisory fixtures, Git patches and regression-test results in JSON and Markdown reports.</p>
+          <span class="result">Research prototype · synthetic demonstration</span>
+          <div class="tags"><span>Python</span><span>Regression testing</span><span>Patch analysis</span></div>
+          <a href="https://github.com/excel16061/vulntrace" target="_blank" rel="noopener noreferrer">View repository</a>
         </article>
         <article class="proj">
-          <div class="top"><h3>Phishing attack detection</h3><span class="yr">2022</span></div>
-          <p>NLP and ML classifiers over email content, links and attachment metadata, combined with rule-based checks and third-party threat intelligence. Designed to update as attack signatures change.</p>
-          <span class="result">NLP + rules + threat intel</span>
+          <div class="top"><h3>EdgeHAR-X / TemporalGuard</h3><span class="yr">2026</span></div>
+          <p>Research on temporal reliability monitoring for zero-shot video action recognition with frozen X-CLIP models. Compares confidence, corruption probes and temporal consistency under dataset shift.</p>
+          <span class="result">Research in progress · analysis code and aggregate results; full video inference pipeline excluded</span>
+          <div class="tags"><span>X-CLIP</span><span>Video ML</span><span>Reliability</span></div>
+          <a href="https://github.com/excel16061/EdgeHAR-X" target="_blank" rel="noopener noreferrer">View repository</a>
+        </article>
+        <article class="proj">
+          <div class="top"><h3>XRLint</h3><span class="yr">2026</span></div>
+          <p>Static checker for A-Frame / WebXR HTML and JavaScript that reports security-sensitive UI properties with source locations and explanations.</p>
+          <span class="result">Flags risky properties for human review; findings do not establish an attack</span>
+          <div class="tags"><span>Python</span><span>Static analysis</span><span>WebXR security</span></div>
+          <a href="https://github.com/excel16061/XRlint" target="_blank" rel="noopener noreferrer">View repository</a>
+        </article>
+        <article class="proj">
+          <div class="top"><h3>Phishing URL Detection</h3><span class="yr">2022 · updated 2026</span></div>
+          <p>Classifies URL text using lexical features, TF-IDF, Random Forest and SVM models, with a Flask interface and JSON API.</p>
+          <span class="result">Synthetic demo dataset · real-world performance not established</span>
           <div class="tags"><span>Python</span><span>NLP</span><span>scikit-learn</span></div>
+          <a href="https://github.com/excel16061/phishing_url_detection" target="_blank" rel="noopener noreferrer">View repository</a>
         </article>
         <article class="proj">
-          <div class="top"><h3>SHA-256 secure online voting</h3><span class="yr">2021</span></div>
-          <p>Hackathon prototype that signs and verifies each vote with SHA-256 hashing to detect tampering. Built the signature generation, validation logic and backend flow.</p>
-          <span class="result">Hackathon winner</span>
-          <div class="tags"><span>Cryptographic hashing</span><span>Backend</span></div>
-        </article>
-        <article class="proj">
-          <div class="top"><h3>Android RAT detection</h3><span class="yr">2020</span></div>
-          <p>Studied Remote Access Trojan infections on Android below version 9 and built a prototype that detects malicious permission takeover and force-revokes unauthorized admin access. Presented to faculty.</p>
-          <span class="result">Working prototype</span>
-          <div class="tags"><span>Android</span><span>Mobile security</span></div>
+          <div class="top"><h3>Human Activity Recognition</h3><span class="yr">2022 · updated 2026</span></div>
+          <p>Video-processing pipeline using OpenCV and a pretrained Kinetics ONNX model, with frame extraction, image classification and report generation.</p>
+          <span class="result">Video inference · pretrained model required</span>
+          <div class="tags"><span>OpenCV</span><span>ONNX</span><span>Computer vision</span></div>
+          <a href="https://github.com/excel16061/HumanActivityRecognition" target="_blank" rel="noopener noreferrer">View repository</a>
         </article>
       </div>
     </div>
@@ -345,9 +357,15 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
     <div class="wrap contact">
       <div class="sec-head"><span class="eyebrow">Contact</span><h2>Let's connect</h2></div>
       <p class="col lede">My research interests include AI security, adversarial robustness, and lightweight security for resource-constrained systems. I’d welcome opportunities to contribute to related research in your lab. I’m based in Irvine, California.</p>
+      <p class="eyebrow">Primary email</p>
       <div class="mailrow">
         <a class="mail" href="mailto:omer@exetech.dev" id="email">omer@exetech.dev</a>
-        <button class="btn" id="copy" type="button">Copy email</button>
+        <button class="btn" id="copy" type="button" data-email-id="email">Copy email</button>
+      </div>
+      <p class="eyebrow">Second primary email</p>
+      <div class="mailrow">
+        <a class="mail" href="mailto:omar16061cm@gmail.com" id="email-secondary">omar16061cm@gmail.com</a>
+        <button class="btn" type="button" data-email-id="email-secondary">Copy email</button>
       </div>
       <div class="links">
         <a href="https://github.com/excel16061" target="_blank" rel="noopener">GitHub</a>
@@ -361,17 +379,21 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 <footer><div class="wrap"><span>© 2026 Syed Omer Ali</span><span>exetech.dev</span></div></footer>
 
 <script>
-// copy email
-document.getElementById('copy').addEventListener('click', function(){
-  var b=this, t='admin@exetech.dev';
-  var done=function(){b.textContent='Copied';setTimeout(function(){b.textContent='Copy email'},1600)};
-  if(navigator.clipboard){navigator.clipboard.writeText(t).then(done,function(){sel()})}else sel();
-  function sel(){var r=document.createRange();r.selectNodeContents(document.getElementById('email'));var s=getSelection();s.removeAllRanges();s.addRange(r)}
+// Copy the email address displayed beside each button.
+document.querySelectorAll('[data-email-id]').forEach(function(button){
+  button.addEventListener('click', function(){
+    var b=this, email=document.getElementById(b.dataset.emailId), t=email.textContent.trim();
+    var done=function(){b.textContent='Copied';setTimeout(function(){b.textContent='Copy email'},1600)};
+    function sel(){var r=document.createRange();r.selectNodeContents(email);var selection=getSelection();selection.removeAllRanges();selection.addRange(r)}
+    if(navigator.clipboard){navigator.clipboard.writeText(t).then(done,sel)}else sel();
+  });
 });
 
 // pruning animation
 (function(){
-  var c=document.getElementById('net'), x=c.getContext('2d'), kept=document.getElementById('kept');
+  var c=document.getElementById('net'), kept=document.getElementById('kept');
+  if(!c || !kept) return;
+  var x=c.getContext('2d');
   var W=c.width,H=c.height, layers=[5,8,8,6,3], nodes=[], edges=[];
   layers.forEach(function(n,li){
     var col=[], lx=60+li*(W-120)/(layers.length-1);
