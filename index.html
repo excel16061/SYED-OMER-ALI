@@ -69,7 +69,9 @@ section{padding-block:72px;border-top:1px solid var(--rule)}
 .hero .stack{display:grid;gap:20px}
 .hero h1{color:var(--ink)}
 .status{display:inline-flex;align-items:center;gap:8px;font:500 12px var(--mono);color:var(--ink);background:var(--sheet);border:1px solid var(--rule);padding:6px 10px;border-radius:99px;width:fit-content}
-.status i{width:8px;height:8px;border-radius:50%;background:var(--signal);display:block}
+.status i{width:8px;height:8px;border-radius:50%;background:var(--signal);display:block;animation:status-blink 2s ease-in-out infinite}
+@keyframes status-blink{0%,100%{opacity:1}50%{opacity:.25}}
+@media (prefers-reduced-motion:reduce){.status i{animation:none}}
 .cta{display:flex;gap:12px;flex-wrap:wrap}
 .btn{display:inline-flex;align-items:center;gap:8px;font:500 14px var(--body);padding:10px 16px;border-radius:6px;text-decoration:none;border:1px solid var(--ink);color:var(--ink);background:transparent;cursor:pointer}
 .btn.primary{background:var(--ink);color:var(--paper)}
